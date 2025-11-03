@@ -2,473 +2,59 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>cell</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sojolo Cell</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📲</text></svg>">
-  <style>
-    :root {
-      --primary: #25D366;
-      --primary-dark: #1faa52;
-      --light-bg: #f8fafc;
-      --card-bg: #ffffff;
-      --text: #1e293b;
-      --text-muted: #64748b;
-      --border: #e2e8f0;
-      --success: #dcfce7;
-      --overlay: rgba(0, 0, 0, 0.6);
-      --radius: 14px;
-      --shadow: 0 4px 12px rgba(0,0,0,0.06);
-      --transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--light-bg);
-      color: var(--text);
-      line-height: 1.5;
-      padding: 16px;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 28px;
-      position: relative;
-    }
-
-    .logo {
-      font-size: 2.5rem;
-      margin-bottom: 12px;
-    }
-
-    h1 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin: 10px 0;
-      color: #0f766e;
-    }
-
-    .stats-btn {
-      position: absolute;
-      top: 0;
-      right: 0;
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 12px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .stats-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      transition: left 0.6s;
-    }
-
-    .stats-btn:hover {
-      background: var(--primary-dark);
-      transform: translateY(-2px);
-    }
-
-    .stats-btn:hover::before {
-      left: 100%;
-    }
-
-    .section {
-      background: var(--card-bg);
-      padding: 24px;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      margin-bottom: 24px;
-    }
-
-    .section-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--text);
-    }
-
-    .option {
-      padding: 14px 16px;
-      margin: 8px 0;
-      background: #fafafa;
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: var(--transition);
-    }
-
-    .option:hover:not(.disabled) {
-      background: #f0fdf4;
-      border-color: #bbf7d0;
-    }
-
-    .option.selected {
-      background: var(--success);
-      border-color: var(--primary);
-      box-shadow: 0 2px 6px rgba(37, 211, 102, 0.25);
-    }
-
-    .option.selected::after {
-      content: "✅";
-      font-size: 1.2rem;
-      color: var(--primary);
-    }
-
-    .custom-input {
-      margin-top: 14px;
-      display: none;
-    }
-
-    .custom-input input {
-      width: 100%;
-      padding: 13px;
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      font-size: 1rem;
-      transition: var(--transition);
-    }
-
-    .custom-input input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.2);
-    }
-
-    .phone-input {
-      display: none;
-      margin-top: 20px;
-    }
-
-    .phone-input input {
-      width: 100%;
-      padding: 14px;
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      font-size: 1rem;
-      transition: var(--transition);
-    }
-
-    .phone-input input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.2);
-    }
-
-    .btn {
-      width: 100%;
-      padding: 15px;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      transition: var(--transition);
-    }
-
-    .btn:hover:not(:disabled) {
-      background: var(--primary-dark);
-      transform: translateY(-1px);
-    }
-
-    .btn:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .summary {
-      background: #f1f5f9;
-      padding: 18px;
-      border-radius: var(--radius);
-      margin-top: 20px;
-      display: none;
-    }
-
-    .summary.show {
-      display: block;
-    }
-
-    .summary p {
-      margin: 6px 0;
-      font-size: 0.95rem;
-    }
-
-    .summary strong {
-      color: var(--text);
-    }
-
-    .info {
-      text-align: center;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-top: 16px;
-    }
-
-    /* Modal de precios */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--overlay);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s, visibility 0.3s;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .modal {
-      background: white;
-      border-radius: var(--radius);
-      width: 90%;
-      max-width: 400px;
-      padding: 24px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      transform: translateY(-10px);
-      transition: transform 0.3s;
-    }
-
-    .modal-overlay.active .modal {
-      transform: translateY(0);
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .modal-header h3 {
-      margin: 0;
-      color: var(--text);
-    }
-
-    .close-modal {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: var(--text-muted);
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-    }
-
-    .close-modal:hover {
-      background: #f1f5f9;
-    }
-
-    .price-list {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .price-item {
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      font-weight: 500;
-    }
-
-    .price-item:last-child {
-      border-bottom: none;
-    }
-
-    .price-value {
-      color: var(--primary);
-      font-weight: 600;
-    }
-
-    .modal-info {
-      margin-top: 16px;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-    }
-
-    /* Proveedores */
-    .provider-status {
-      font-size: 0.8rem;
-      font-weight: 600;
-      padding: 4px 8px;
-      border-radius: 20px;
-    }
-
-    .available {
-      color: #065f46;
-      background-color: #dcfce7;
-    }
-
-    .unavailable {
-      color: #b91c1c;
-      background-color: #fee2e2;
-    }
-
-    .option.disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    @media (max-width: 480px) {
-      .container {
-        padding: 0 8px;
-      }
-      .section {
-        padding: 20px;
-      }
-      h1 {
-        font-size: 1.5rem;
-      }
-      .stats-btn {
-        padding: 6px 12px;
-        font-size: 0.85rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Contenido principal -->
-  <div class="container" id="mainContent">
-    <header>
-      <div class="logo">📲</div>
-      <h1>cell</h1>
-      <button class="stats-btn" id="openPricesBtn" aria-label="Ver estadísticas del mercado">Estadísticas</button>
-    </header>
+  <header>
+    <h1>Sojolo Cell</h1>
+    <div class="header-btns">
+      <button class="btn-sm" id="openPricesBtn">Estadísticas</button>
+      <button class="btn-sm" id="openPrivacyBtn">Privacidad</button>
+    </div>
+  </header>
 
-    <main>
-      <section class="section">
-        <h2 class="section-title">🪙 Seleccione la cantidad</h2>
-        <div class="option" data-amount="120">120 CUP</div>
-        <div class="option" data-amount="240">240 CUP</div>
-        <div class="option" data-amount="360">360 CUP</div>
-        <div class="option" data-amount="500">500 CUP</div>
-        <div class="option" id="customOption">Otra cantidad</div>
-        <div class="custom-input" id="customInputDiv">
-          <input type="number" id="customAmountInput" placeholder="Ej: 100" min="1" inputmode="numeric" />
-        </div>
-      </section>
-
-      <section class="section" id="providerSection" style="display: none;">
-        <h2 class="section-title">👤 Seleccione el proveedor</h2>
-        <p class="info" style="margin-bottom: 16px; font-size: 0.9rem; color: var(--text-muted);">
-          ℹ️ El proveedor puede cambiar sin previo aviso.
-        </p>
-        <!-- Disponibles -->
-        <div class="option provider-item" data-provider="+5359759363">
-          <span>Contactar</span>
-          <span class="provider-status available">Disponible</span>
-        </div>
-        <div class="option provider-item" data-provider="+5355388038">
-          <span>Contactar</span>
-          <span class="provider-status available">Disponible</span>
-        </div>
-        <div class="option provider-item" data-provider="+5359113625">
-          <span>Contactar</span>
-          <span class="provider-status available">Disponible</span>
-        </div>
-        <!-- No disponibles -->
-        <div class="option provider-item disabled" data-provider="">
-          <span>Proveedor 4</span>
-          <span class="provider-status unavailable">No disponible</span>
-        </div>
-        <div class="option provider-item disabled" data-provider="">
-          <span>Proveedor 5</span>
-          <span class="provider-status unavailable">No disponible</span>
-        </div>
-        <div class="option provider-item disabled" data-provider="">
-          <span>Proveedor 6</span>
-          <span class="provider-status unavailable">No disponible</span>
-        </div>
-        <div class="option provider-item disabled" data-provider="">
-          <span>Proveedor 7</span>
-          <span class="provider-status unavailable">No disponible</span>
-        </div>
-        <div class="option provider-item disabled" data-provider="">
-          <span>Proveedor 8</span>
-          <span class="provider-status unavailable">No disponible</span>
-        </div>
-        <div class="option provider-item disabled" data-provider="">
-          <span>Proveedor 9</span>
-          <span class="provider-status unavailable">No disponible</span>
-        </div>
-        <div class="option provider-item disabled" data-provider="">
-          <span>Proveedor 10</span>
-          <span class="provider-status unavailable">No disponible</span>
-        </div>
-      </section>
-
-      <div class="phone-input" id="phoneInputSection">
-        <input type="tel" id="userPhone" placeholder="Tu número de móvil (ej: +53 00000000)" autocomplete="tel" inputmode="tel" />
+  <main>
+    <section class="section">
+      <h2 class="section-title">🪙 Seleccione la cantidad</h2>
+      <div class="option" data-amount="120">120 CUP</div>
+      <div class="option" data-amount="240">240 CUP</div>
+      <div class="option" data-amount="360">360 CUP</div>
+      <div class="option" data-amount="500">500 CUP</div>
+      <div class="option" id="customOption">Otra cantidad</div>
+      <div class="custom-input" id="customInputDiv">
+        <input type="number" id="customAmountInput" placeholder="Ej: 100" min="1" inputmode="numeric" />
       </div>
+    </section>
 
-      <button class="btn" id="whatsappBtn" disabled>
-        <span aria-hidden="true">💬</span> Solicitar
-      </button>
+    <section class="section" id="providerSection" style="display: none;">
+      <h2 class="section-title">👤 Seleccione el proveedor</h2>
+      <p class="info">ℹ️ El proveedor puede cambiar sin previo aviso.</p>
+      <!-- 5 proveedores disponibles -->
+      <div class="option provider-item" data-provider="+5351234567">Contactar <span class="status available">Disponible</span></div>
+      <div class="option provider-item" data-provider="+5352345678">Contactar <span class="status available">Disponible</span></div>
+      <div class="option provider-item" data-provider="+5353456789">Contactar <span class="status available">Disponible</span></div>
+      <div class="option provider-item" data-provider="+5354567890">Contactar <span class="status available">Disponible</span></div>
+      <div class="option provider-item" data-provider="+5355678901">Contactar <span class="status available">Disponible</span></div>
+    </section>
 
-      <div class="summary" id="summaryBox">
-        <p><strong>Cantidad:</strong> <span id="summaryAmount">—</span></p>
-        <p><strong>Proveedor:</strong> <span id="summaryProvider">—</span></p>
-        <p><strong>Tu número:</strong> <span id="summaryUserPhone">—</span></p>
-      </div>
+    <div class="phone-input" id="phoneInputSection" style="display: none;">
+      <input type="tel" id="userPhone" placeholder="Tu número de móvil (ej: +53 00000000)" autocomplete="tel" inputmode="tel" />
+    </div>
 
-      <p class="info">2025 Recargue el saldo.</p>
-    </main>
-  </div>
+    <button class="btn" id="whatsappBtn" disabled>💬 Solicitar</button>
 
-  <!-- Modal de precios -->
-  <div class="modal-overlay" id="pricesModal" aria-modal="true" role="dialog">
+    <div class="summary" id="summaryBox">
+      <p><strong>Cantidad:</strong> <span id="summaryAmount">—</span></p>
+      <p><strong>Proveedor:</strong> <span id="summaryProvider">—</span></p>
+      <p><strong>Tu número:</strong> <span id="summaryUserPhone">—</span></p>
+    </div>
+  </main>
+
+  <!-- Modal: Estadísticas -->
+  <div class="modal-overlay" id="pricesModal" role="dialog" aria-modal="true">
     <div class="modal">
       <div class="modal-header">
         <h3>〽️ Mercado Informal</h3>
@@ -480,165 +66,25 @@
         <li class="price-item">360 CUP <span class="price-value">= 1800</span></li>
         <li class="price-item">500 CUP <span class="price-value">= 2500</span></li>
       </ul>
-      <p class="modal-info">
-        ℹ️ Los precios mostrados son orientativos y pueden variar con el tiempo. 
-        Se basan en precios aproximadas del mercado informal y redes sociales.
-      </p>
+      <p class="modal-info">ℹ️ Precios orientativos del mercado informal. Pueden variar.</p>
     </div>
   </div>
 
-  <script>
-    (function () {
-      'use strict';
+  <!-- Modal: Privacidad -->
+  <div class="modal-overlay" id="privacyModal" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>🔒 Política de Privacidad</h3>
+        <button class="close-modal" id="closePrivacyModal" aria-label="Cerrar">&times;</button>
+      </div>
+      <div class="modal-info">
+        <p>Sojolo Cell es solo una herramienta de contacto. <strong>No somos parte</strong> de las transacciones entre compradores y vendedores de saldo móvil.</p>
+        <p>No nos hacemos responsables por fraudes, errores, saldos no recibidos o cualquier otro problema derivado del uso de esta plataforma.</p>
+        <p>Al usar este servicio, aceptas que actúas bajo tu propio riesgo.</p>
+      </div>
+    </div>
+  </div>
 
-      const state = {
-        amount: null,
-        provider: null,
-        userPhone: ''
-      };
-
-      const elements = {
-        optionsAmount: document.querySelectorAll('.option[data-amount]'),
-        customOption: document.getElementById('customOption'),
-        customInputDiv: document.getElementById('customInputDiv'),
-        customAmountInput: document.getElementById('customAmountInput'),
-        providerSection: document.getElementById('providerSection'),
-        optionsProvider: document.querySelectorAll('.provider-item'),
-        phoneInputSection: document.getElementById('phoneInputSection'),
-        userPhoneInput: document.getElementById('userPhone'),
-        whatsappBtn: document.getElementById('whatsappBtn'),
-        summaryBox: document.getElementById('summaryBox'),
-        summaryAmount: document.getElementById('summaryAmount'),
-        summaryProvider: document.getElementById('summaryProvider'),
-        summaryUserPhone: document.getElementById('summaryUserPhone'),
-        openPricesBtn: document.getElementById('openPricesBtn'),
-        pricesModal: document.getElementById('pricesModal'),
-        closePricesModal: document.getElementById('closePricesModal')
-      };
-
-      function sanitizePhone(phone) {
-        return phone.replace(/[^\d+]/g, '');
-      }
-
-      function updateSummary() {
-        elements.summaryAmount.textContent = state.amount || '—';
-        elements.summaryProvider.textContent = state.provider || '—';
-        elements.summaryUserPhone.textContent = state.userPhone || '—';
-        elements.summaryBox.classList.toggle('show', state.amount && state.provider);
-      }
-
-      function checkReady() {
-        const ready = state.amount && state.provider && state.userPhone;
-        elements.whatsappBtn.disabled = !ready;
-      }
-
-      function selectAmount(amount) {
-        elements.optionsAmount.forEach(el => el.classList.remove('selected'));
-        if (amount) {
-          state.amount = amount + ' CUP';
-          elements.providerSection.style.display = 'block';
-        } else {
-          state.amount = null;
-          elements.providerSection.style.display = 'none';
-        }
-        updateSummary();
-        checkReady();
-      }
-
-      function toggleCustomAmount() {
-        const isActive = elements.customInputDiv.style.display === 'block';
-        if (isActive) {
-          elements.customInputDiv.style.display = 'none';
-          elements.customOption.classList.remove('selected');
-          state.amount = null;
-          elements.providerSection.style.display = 'none';
-        } else {
-          elements.optionsAmount.forEach(el => el.classList.remove('selected'));
-          elements.customOption.classList.add('selected');
-          elements.customInputDiv.style.display = 'block';
-          elements.customAmountInput.focus();
-          state.amount = '';
-        }
-        updateSummary();
-        checkReady();
-      }
-
-      function selectProvider(providerValue, displayText) {
-        state.provider = displayText;
-        elements.phoneInputSection.style.display = 'block';
-        elements.userPhoneInput.focus();
-        updateSummary();
-        checkReady();
-      }
-
-      // Eventos: cantidad
-      elements.optionsAmount.forEach(el => {
-        el.addEventListener('click', () => {
-          el.classList.add('selected');
-          selectAmount(el.dataset.amount);
-        });
-      });
-
-      elements.customOption?.addEventListener('click', toggleCustomAmount);
-
-      elements.customAmountInput?.addEventListener('input', () => {
-        const val = elements.customAmountInput.value.trim();
-        if (val && !isNaN(val) && Number(val) > 0) {
-          state.amount = val + ' CUP';
-          elements.providerSection.style.display = 'block';
-        } else {
-          state.amount = null;
-          elements.providerSection.style.display = 'none';
-        }
-        updateSummary();
-        checkReady();
-      });
-
-      // Eventos: proveedores
-      elements.optionsProvider.forEach(el => {
-        el.addEventListener('click', () => {
-          if (el.classList.contains('disabled')) return;
-          elements.optionsProvider.forEach(e => e.classList.remove('selected'));
-          el.classList.add('selected');
-          const providerNumber = el.dataset.provider;
-          const displayText = providerNumber
-            ? providerNumber
-            : el.querySelector('span:first-child').textContent;
-          selectProvider(providerNumber, displayText);
-        });
-      });
-
-      // Teléfono
-      elements.userPhoneInput?.addEventListener('input', () => {
-        state.userPhone = sanitizePhone(elements.userPhoneInput.value);
-        updateSummary();
-        checkReady();
-      });
-
-      // WhatsApp
-      elements.whatsappBtn?.addEventListener('click', () => {
-        if (!state.amount || !state.provider || !state.userPhone) return;
-        const cleanProvider = state.provider.replace(/\D/g, '');
-        if (!cleanProvider) return;
-        const message = `Hola, solicito una transferencia de saldo a mi número ${state.userPhone} por un monto de ${state.amount}. ¡Gracias!`;
-        window.open(`https://wa.me/${cleanProvider}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
-      });
-
-      // Modal
-      elements.openPricesBtn?.addEventListener('click', () => {
-        elements.pricesModal.classList.add('active');
-      });
-
-      elements.closePricesModal?.addEventListener('click', () => {
-        elements.pricesModal.classList.remove('active');
-      });
-
-      elements.pricesModal?.addEventListener('click', (e) => {
-        if (e.target === elements.pricesModal) {
-          elements.pricesModal.classList.remove('active');
-        }
-      });
-    })();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
