@@ -39,7 +39,6 @@ body {
   min-height: 100vh;
 }
 
-/* Header */
 header {
   display: flex;
   justify-content: space-between;
@@ -76,7 +75,6 @@ h1 {
   outline: none;
 }
 
-/* Progress Indicator */
 .progress-indicator {
   display: flex;
   justify-content: space-between;
@@ -114,7 +112,6 @@ h1 {
   background: var(--primary-light);
 }
 
-/* Sections */
 .section {
   background: var(--white);
   padding: 20px;
@@ -215,7 +212,6 @@ h1 {
   margin-top: 6px;
 }
 
-/* Provider List */
 .provider-list {
   display: flex;
   flex-direction: column;
@@ -239,23 +235,6 @@ h1 {
   font-weight: 600;
 }
 
-.provider-rating {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
-}
-
-.rating-stars {
-  color: #fbbf24;
-  font-size: 0.9rem;
-}
-
-.rating-text {
-  font-size: 0.75rem;
-  color: var(--muted);
-}
-
 .status {
   font-size: 0.75rem;
   padding: 3px 8px;
@@ -269,7 +248,6 @@ h1 {
   color: var(--success);
 }
 
-/* Button */
 .btn {
   width: 100%;
   padding: 16px;
@@ -301,7 +279,6 @@ h1 {
   transform: none;
 }
 
-/* Summary */
 .summary {
   background: #f1f5f9;
   padding: 20px;
@@ -330,7 +307,6 @@ h1 {
   margin-bottom: 12px;
 }
 
-/* Notification */
 .notification {
   position: fixed;
   top: 20px;
@@ -362,18 +338,26 @@ h1 {
   background: var(--warning);
 }
 
-/* Promotion Banner */
 .promotion-banner {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   padding: 16px;
   border-radius: var(--radius);
   margin-top: 20px;
-  display: flex;
+  display: none;
   justify-content: space-between;
   align-items: center;
   position: relative;
   box-shadow: var(--shadow-md);
+}
+
+.promotion-banner.show {
+  display: flex;
+}
+
+.promotion-logo img {
+  border-radius: 8px;
+  margin-right: 12px;
 }
 
 .promotion-content h3 {
@@ -413,7 +397,6 @@ h1 {
   align-self: flex-start;
 }
 
-/* Modal */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -492,7 +475,6 @@ h1 {
   font-weight: 600;
 }
 
-/* Animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -503,7 +485,6 @@ h1 {
   to { transform: translateY(0); opacity: 1; }
 }
 
-/* Responsive */
 @media (max-width: 480px) {
   body {
     padding: 12px;
@@ -537,7 +518,6 @@ h1 {
   }
 }
 
-/* High contrast mode support */
 @media (prefers-contrast: high) {
   :root {
     --primary: #006400;
@@ -547,7 +527,6 @@ h1 {
   }
 }
 
-/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;

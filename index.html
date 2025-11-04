@@ -7,10 +7,9 @@
   <meta name="keywords" content="saldo móvil, Cuba, transferencia, recarga, ETECSA">
   <meta name="msvalidate.01" content="27409BC667954ADA2020F71107F19DB2" />
   <title>Sojolo Cell</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📲</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2325D366'/><text x='50%' y='50%' font-size='60' text-anchor='middle' alignment-baseline='middle' fill='white' font-family='Arial, sans-serif'>SC</text></svg>">
   <link rel="preload" href="styles.css" as="style">
   <link rel="stylesheet" href="styles.css" />
-  <!-- Preload para recursos críticos -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
@@ -20,8 +19,9 @@
   <header>
     <h1>Sojolo Cell</h1>
     <div class="header-btns">
-      <button class="btn-sm" id="openPricesBtn" aria-label="Ver estadísticas de precios">Estadísticas</button>
-      <button class="btn-sm" id="openPrivacyBtn" aria-label="Ver política de privacidad">Privacidad</button>
+      <button class="btn-sm" id="openPricesBtn">📊</button>
+      <button class="btn-sm" id="downloadAppBtn">📥</button>
+      <button class="btn-sm" id="openPrivacyBtn">🔒</button>
     </div>
   </header>
 
@@ -36,29 +36,28 @@
     <section class="section" id="amountSection">
       <h2 class="section-title">🪙 Seleccione la cantidad</h2>
       <div class="options-grid">
-        <div class="option" data-amount="120" role="button" tabindex="0" aria-label="Seleccionar 120 CUP">
+        <div class="option" data-amount="120" role="button" tabindex="0">
           <span>120 CUP</span>
           <span class="option-subtitle">≈ 700 CUP</span>
         </div>
-        <div class="option" data-amount="240" role="button" tabindex="0" aria-label="Seleccionar 240 CUP">
+        <div class="option" data-amount="240" role="button" tabindex="0">
           <span>240 CUP</span>
           <span class="option-subtitle">≈ 1300 CUP</span>
         </div>
-        <div class="option" data-amount="360" role="button" tabindex="0" aria-label="Seleccionar 360 CUP">
+        <div class="option" data-amount="360" role="button" tabindex="0">
           <span>360 CUP</span>
           <span class="option-subtitle">≈ 1800 CUP</span>
         </div>
-        <div class="option" data-amount="500" role="button" tabindex="0" aria-label="Seleccionar 500 CUP">
+        <div class="option" data-amount="500" role="button" tabindex="0">
           <span>500 CUP</span>
           <span class="option-subtitle">≈ 2500 CUP</span>
         </div>
-        <div class="option" id="customOption" role="button" tabindex="0" aria-label="Especificar otra cantidad">
+        <div class="option" id="customOption" role="button" tabindex="0">
           <span>Otra cantidad</span>
         </div>
       </div>
       <div class="custom-input" id="customInputDiv">
-        <input type="number" id="customAmountInput" placeholder="Ej: 100" min="1" inputmode="numeric" 
-               aria-label="Ingrese la cantidad personalizada en CUP" />
+        <input type="number" id="customAmountInput" placeholder="Ej: 100" min="1" inputmode="numeric" />
       </div>
     </section>
 
@@ -71,19 +70,11 @@
             <span class="provider-name">Contactar Proveedor 1</span>
             <span class="status available">Disponible</span>
           </div>
-          <div class="provider-rating">
-            <span class="rating-stars">★★★★☆</span>
-            <span class="rating-text">4.2/5</span>
-          </div>
         </div>
         <div class="option provider-item" data-provider="+53 5 0728907" role="button" tabindex="0">
           <div class="provider-info">
             <span class="provider-name">Contactar Proveedor 2</span>
             <span class="status available">Disponible</span>
-          </div>
-          <div class="provider-rating">
-            <span class="rating-stars">★★★★☆</span>
-            <span class="rating-text">4.8/5</span>
           </div>
         </div>
         <div class="option provider-item" data-provider="+53 5 5384257" role="button" tabindex="0">
@@ -91,19 +82,11 @@
             <span class="provider-name">Contactar Proveedor 3</span>
             <span class="status available">Disponible</span>
           </div>
-          <div class="provider-rating">
-            <span class="rating-stars">★★★☆☆</span>
-            <span class="rating-text">3.5/5</span>
-          </div>
         </div>
         <div class="option provider-item" data-provider="+53 63175552" role="button" tabindex="0">
           <div class="provider-info">
             <span class="provider-name">Contactar Proveedor 4</span>
             <span class="status available">Disponible</span>
-          </div>
-          <div class="provider-rating">
-            <span class="rating-stars">★★★★☆</span>
-            <span class="rating-text">4.0/5</span>
           </div>
         </div>
         <div class="option provider-item" data-provider="#" role="button" tabindex="0">
@@ -111,22 +94,17 @@
             <span class="provider-name">Contactar Proveedor 5</span>
             <span class="status available">Disponible</span>
           </div>
-          <div class="provider-rating">
-            <span class="rating-stars">★★★★☆</span>
-            <span class="rating-text">4.1/5</span>
-          </div>
         </div>
       </div>
     </section>
 
     <div class="phone-input" id="phoneInputSection" style="display: none;">
       <label for="userPhone" class="input-label">Tu número de móvil</label>
-      <input type="tel" id="userPhone" placeholder="Ej: +53 5XXXXXXX" autocomplete="tel" inputmode="tel" 
-             aria-describedby="phoneHelp" />
+      <input type="tel" id="userPhone" placeholder="Ej: +53 5XXXXXXX" autocomplete="tel" inputmode="tel" />
       <p id="phoneHelp" class="input-help">Formato: +53 seguido de 8 dígitos</p>
     </div>
 
-    <button class="btn" id="whatsappBtn" disabled aria-label="Solicitar transferencia de saldo">💬 Solicitar</button>
+    <button class="btn" id="whatsappBtn" disabled>💬 Solicitar</button>
 
     <div class="summary" id="summaryBox">
       <h3 class="summary-title">Resumen de tu solicitud</h3>
@@ -135,23 +113,24 @@
       <p><strong>Tu número:</strong> <span id="summaryUserPhone">—</span></p>
     </div>
 
-    <!-- Promoción inteligente -->
     <div class="promotion-banner" id="promotionBanner">
+      <div class="promotion-logo">
+        <img src="https://github.com/sojololite/cell/raw/refs/heads/main/SC.jpeg" alt="Sojolo Cell" width="50" height="50">
+      </div>
       <div class="promotion-content">
         <h3>¿Necesitas más servicios?</h3>
         <p>Visita nuestra plataforma de negocios para más opciones</p>
         <a href="https://sojololite.github.io/business/" class="promotion-btn" target="_blank" rel="noopener">Ver servicios</a>
       </div>
-      <button class="promotion-close" id="closePromotion" aria-label="Cerrar promoción">&times;</button>
+      <button class="promotion-close" id="closePromotion">&times;</button>
     </div>
   </main>
 
-  <!-- Modal: Estadísticas -->
-  <div class="modal-overlay" id="pricesModal" role="dialog" aria-modal="true" aria-labelledby="pricesModalTitle">
+  <div class="modal-overlay" id="pricesModal" role="dialog" aria-modal="true">
     <div class="modal">
       <div class="modal-header">
-        <h3 id="pricesModalTitle">〽️ Mercado Informal</h3>
-        <button class="close-modal" id="closePricesModal" aria-label="Cerrar">&times;</button>
+        <h3>〽️ Mercado Informal</h3>
+        <button class="close-modal" id="closePricesModal">&times;</button>
       </div>
       <ul class="price-list">
         <li class="price-item">120 CUP <span class="price-value">= 700 MLC</span></li>
@@ -163,12 +142,11 @@
     </div>
   </div>
 
-  <!-- Modal: Privacidad -->
-  <div class="modal-overlay" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyModalTitle">
+  <div class="modal-overlay" id="privacyModal" role="dialog" aria-modal="true">
     <div class="modal">
       <div class="modal-header">
-        <h3 id="privacyModalTitle">🔒 Política de Privacidad</h3>
-        <button class="close-modal" id="closePrivacyModal" aria-label="Cerrar">&times;</button>
+        <h3>🔒 Política de Privacidad</h3>
+        <button class="close-modal" id="closePrivacyModal">&times;</button>
       </div>
       <div class="modal-info">
         <p>Sojolo Cell es solo una herramienta de contacto. <strong>No somos parte</strong> de las transacciones entre compradores y vendedores de saldo móvil.</p>
