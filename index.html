@@ -3,78 +3,171 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sojolo Cell - Servicio de transferencia de saldo móvil en Cuba">
+  <meta name="keywords" content="saldo móvil, Cuba, transferencia, recarga, ETECSA">
+  <meta name="msvalidate.01" content="27409BC667954ADA2020F71107F19DB2" />
   <title>Sojolo Cell</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📲</text></svg>">
+  <link rel="preload" href="styles.css" as="style">
   <link rel="stylesheet" href="styles.css" />
+  <!-- Preload para recursos críticos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
+  <div id="notification" class="notification" aria-live="polite"></div>
+  
   <header>
     <h1>Sojolo Cell</h1>
     <div class="header-btns">
-      <button class="btn-sm" id="openPricesBtn">Estadísticas</button>
-      <button class="btn-sm" id="openPrivacyBtn">Privacidad</button>
+      <button class="btn-sm" id="openPricesBtn" aria-label="Ver estadísticas de precios">Estadísticas</button>
+      <button class="btn-sm" id="openPrivacyBtn" aria-label="Ver política de privacidad">Privacidad</button>
     </div>
   </header>
 
   <main>
-    <section class="section">
+    <div class="progress-indicator" id="progressIndicator">
+      <div class="progress-step active" data-step="1">Cantidad</div>
+      <div class="progress-step" data-step="2">Proveedor</div>
+      <div class="progress-step" data-step="3">Teléfono</div>
+      <div class="progress-step" data-step="4">Confirmar</div>
+    </div>
+
+    <section class="section" id="amountSection">
       <h2 class="section-title">🪙 Seleccione la cantidad</h2>
-      <div class="option" data-amount="120">120 CUP</div>
-      <div class="option" data-amount="240">240 CUP</div>
-      <div class="option" data-amount="360">360 CUP</div>
-      <div class="option" data-amount="500">500 CUP</div>
-      <div class="option" id="customOption">Otra cantidad</div>
+      <div class="options-grid">
+        <div class="option" data-amount="120" role="button" tabindex="0" aria-label="Seleccionar 120 CUP">
+          <span>120 CUP</span>
+          <span class="option-subtitle">≈ 700 MLC</span>
+        </div>
+        <div class="option" data-amount="240" role="button" tabindex="0" aria-label="Seleccionar 240 CUP">
+          <span>240 CUP</span>
+          <span class="option-subtitle">≈ 1300 MLC</span>
+        </div>
+        <div class="option" data-amount="360" role="button" tabindex="0" aria-label="Seleccionar 360 CUP">
+          <span>360 CUP</span>
+          <span class="option-subtitle">≈ 1800 MLC</span>
+        </div>
+        <div class="option" data-amount="500" role="button" tabindex="0" aria-label="Seleccionar 500 CUP">
+          <span>500 CUP</span>
+          <span class="option-subtitle">≈ 2500 MLC</span>
+        </div>
+        <div class="option" id="customOption" role="button" tabindex="0" aria-label="Especificar otra cantidad">
+          <span>Otra cantidad</span>
+        </div>
+      </div>
       <div class="custom-input" id="customInputDiv">
-        <input type="number" id="customAmountInput" placeholder="Ej: 100" min="1" inputmode="numeric" />
+        <input type="number" id="customAmountInput" placeholder="Ej: 100" min="1" inputmode="numeric" 
+               aria-label="Ingrese la cantidad personalizada en CUP" />
       </div>
     </section>
 
     <section class="section" id="providerSection" style="display: none;">
       <h2 class="section-title">👤 Seleccione el proveedor</h2>
       <p class="info">ℹ️ El proveedor puede cambiar sin previo aviso.</p>
-      <!-- 5 proveedores disponibles -->
-      <div class="option provider-item" data-provider="+53 5 6584673">Contactar <span class="status available">Disponible</span></div>
-      <div class="option provider-item" data-provider="+53 5 0728907">Contactar <span class="status available">Disponible</span></div>
-      <div class="option provider-item" data-provider="+53 5 5384257">Contactar <span class="status available">Disponible</span></div>
-      <div class="option provider-item" data-provider="#">Contactar <span class="status available">Disponible</span></div>
-      <div class="option provider-item" data-provider="#">Contactar <span class="status available">Disponible</span></div>
+      <div class="provider-list">
+        <div class="option provider-item" data-provider="+53 5 6584673" role="button" tabindex="0">
+          <div class="provider-info">
+            <span class="provider-name">Contactar Proveedor 1</span>
+            <span class="status available">Disponible</span>
+          </div>
+          <div class="provider-rating">
+            <span class="rating-stars">★★★★☆</span>
+            <span class="rating-text">4.2/5</span>
+          </div>
+        </div>
+        <div class="option provider-item" data-provider="+53 5 0728907" role="button" tabindex="0">
+          <div class="provider-info">
+            <span class="provider-name">Contactar Proveedor 2</span>
+            <span class="status available">Disponible</span>
+          </div>
+          <div class="provider-rating">
+            <span class="rating-stars">★★★★★</span>
+            <span class="rating-text">4.8/5</span>
+          </div>
+        </div>
+        <div class="option provider-item" data-provider="+53 5 5384257" role="button" tabindex="0">
+          <div class="provider-info">
+            <span class="provider-name">Contactar Proveedor 3</span>
+            <span class="status available">Disponible</span>
+          </div>
+          <div class="provider-rating">
+            <span class="rating-stars">★★★☆☆</span>
+            <span class="rating-text">3.5/5</span>
+          </div>
+        </div>
+        <div class="option provider-item" data-provider="+53 63175552" role="button" tabindex="0">
+          <div class="provider-info">
+            <span class="provider-name">Contactar Proveedor 4</span>
+            <span class="status available">Disponible</span>
+          </div>
+          <div class="provider-rating">
+            <span class="rating-stars">★★★★☆</span>
+            <span class="rating-text">4.0/5</span>
+          </div>
+        </div>
+        <div class="option provider-item" data-provider="#" role="button" tabindex="0">
+          <div class="provider-info">
+            <span class="provider-name">Contactar Proveedor 5</span>
+            <span class="status available">Disponible</span>
+          </div>
+          <div class="provider-rating">
+            <span class="rating-stars">★★★★☆</span>
+            <span class="rating-text">4.1/5</span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <div class="phone-input" id="phoneInputSection" style="display: none;">
-      <input type="tel" id="userPhone" placeholder="Tu número de móvil (ej: +53 00000000)" autocomplete="tel" inputmode="tel" />
+      <label for="userPhone" class="input-label">Tu número de móvil</label>
+      <input type="tel" id="userPhone" placeholder="Ej: +53 50000000" autocomplete="tel" inputmode="tel" 
+             aria-describedby="phoneHelp" />
+      <p id="phoneHelp" class="input-help">Formato: +53 seguido de 8 dígitos</p>
     </div>
 
-    <button class="btn" id="whatsappBtn" disabled>💬 Solicitar</button>
+    <button class="btn" id="whatsappBtn" disabled aria-label="Solicitar transferencia de saldo">💬 Solicitar</button>
 
     <div class="summary" id="summaryBox">
+      <h3 class="summary-title">Resumen de tu solicitud</h3>
       <p><strong>Cantidad:</strong> <span id="summaryAmount">—</span></p>
       <p><strong>Proveedor:</strong> <span id="summaryProvider">—</span></p>
       <p><strong>Tu número:</strong> <span id="summaryUserPhone">—</span></p>
     </div>
+
+    <!-- Promoción inteligente -->
+    <div class="promotion-banner" id="promotionBanner">
+      <div class="promotion-content">
+        <h3>¿Necesitas más servicios?</h3>
+        <p>Visita nuestra plataforma de negocios para más opciones</p>
+        <a href="https://sojololite.github.io/business/" class="promotion-btn" target="_blank" rel="noopener">Ver servicios</a>
+      </div>
+      <button class="promotion-close" id="closePromotion" aria-label="Cerrar promoción">&times;</button>
+    </div>
   </main>
 
   <!-- Modal: Estadísticas -->
-  <div class="modal-overlay" id="pricesModal" role="dialog" aria-modal="true">
+  <div class="modal-overlay" id="pricesModal" role="dialog" aria-modal="true" aria-labelledby="pricesModalTitle">
     <div class="modal">
       <div class="modal-header">
-        <h3>〽️ Mercado Informal</h3>
+        <h3 id="pricesModalTitle">〽️ Mercado Informal</h3>
         <button class="close-modal" id="closePricesModal" aria-label="Cerrar">&times;</button>
       </div>
       <ul class="price-list">
-        <li class="price-item">120 CUP <span class="price-value">= 700</span></li>
-        <li class="price-item">240 CUP <span class="price-value">= 1300</span></li>
-        <li class="price-item">360 CUP <span class="price-value">= 1800</span></li>
-        <li class="price-item">500 CUP <span class="price-value">= 2500</span></li>
+        <li class="price-item">120 CUP <span class="price-value">= 700 MLC</span></li>
+        <li class="price-item">240 CUP <span class="price-value">= 1300 MLC</span></li>
+        <li class="price-item">360 CUP <span class="price-value">= 1800 MLC</span></li>
+        <li class="price-item">500 CUP <span class="price-value">= 2500 MLC</span></li>
       </ul>
       <p class="modal-info">ℹ️ Precios orientativos del mercado informal. Pueden variar.</p>
     </div>
   </div>
 
   <!-- Modal: Privacidad -->
-  <div class="modal-overlay" id="privacyModal" role="dialog" aria-modal="true">
+  <div class="modal-overlay" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyModalTitle">
     <div class="modal">
       <div class="modal-header">
-        <h3>🔒 Política de Privacidad</h3>
+        <h3 id="privacyModalTitle">🔒 Política de Privacidad</h3>
         <button class="close-modal" id="closePrivacyModal" aria-label="Cerrar">&times;</button>
       </div>
       <div class="modal-info">
