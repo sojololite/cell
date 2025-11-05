@@ -233,7 +233,7 @@
         return;
       }
       
-      const msg = `Hola, solicito una transferencia de saldo a mi número ${state.userPhone} por un monto de ${state.amount}. ¡Gracias!`;
+      const msg = `Hola, lo contacte atravez de la plataforma Sojolo Cell, necesito una transferencia de saldo, mi número es: ${state.userPhone} por un monto de ${state.amount}. ¡dígame cómo sería el pago!`;
       const providerNumber = state.provider.replace(/\D/g, '');
       const url = `https://wa.me/${providerNumber}?text=${encodeURIComponent(msg)}`;
       
