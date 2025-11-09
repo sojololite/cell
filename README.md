@@ -18,7 +18,7 @@
 
 <div align="center">
 
-[![Gmail](https://img.shields.io/badge/Email-info@sojolocell.com-red?style=for-the-badge&logo=gmail)](mailto:sojololite@gmail.com)
+[![Gmail](https://img.shields.io/badge/Gmail-sojololite@gmail.com-red?style=for-the-badge&logo=gmail)](mailto:sojololite@gmail.com)
 
 [![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/+5355117403)
 
