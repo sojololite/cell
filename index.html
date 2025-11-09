@@ -8,13 +8,571 @@
   <meta name="msvalidate.01" content="27409BC667954ADA2020F71107F19DB2" />
   <title>Sojolo Cell</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2325D366'/><text x='50%' y='50%' font-size='60' text-anchor='middle' alignment-baseline='middle' fill='white' font-family='Arial, sans-serif'>SC</text></svg>">
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --primary: #25D366;
+      --primary-dark: #1a9c4d;
+      --primary-light: #e8f7ed;
+      --secondary: #667ee0;
+      --secondary-dark: #5a6fd0;
+      --light: #f8fafc;
+      --white: #ffffff;
+      --text: #2d3748;
+      --text-dark: #1a202c;
+      --muted: #718096;
+      --border: #e2e8f0;
+      --success: #38a169;
+      --success-bg: #f0fff4;
+      --warning: #d69e2e;
+      --warning-bg: #fffaf0;
+      --error: #e53e3e;
+      --error-bg: #fff5f5;
+      --overlay: rgba(0, 0, 0, 0.7);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+      min-height: 100vh;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 16px 0 24px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .logo-text {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .header-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-sm, .btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-sm:hover, .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-sm {
+      padding: 8px 14px;
+      font-size: 0.85rem;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px;
+      font-size: 1.05rem;
+      margin-top: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .progress-indicator {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .progress-indicator::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--border);
+      transform: translateY(-50%);
+      z-index: 0;
+    }
+
+    .progress-step {
+      background: var(--white);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 600;
+      position: relative;
+      z-index: 1;
+      border: 2px solid var(--border);
+      color: var(--muted);
+      transition: all 0.3s ease;
+    }
+
+    .progress-step.active {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .section {
+      background: var(--white);
+      padding: 20px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .option {
+      padding: 14px;
+      background: #fafafa;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 70px;
+      transition: all 0.2s ease;
+    }
+
+    .option:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .option.selected {
+      background: var(--success-bg);
+      border-color: var(--primary);
+      position: relative;
+    }
+
+    .option.selected::after {
+      content: "✓";
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      color: var(--success);
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .option.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .option-subtitle {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .custom-input,
+    .phone-input {
+      margin-top: 12px;
+      display: none;
+    }
+
+    .custom-input input,
+    .phone-input input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .custom-input input:focus,
+    .phone-input input:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+    }
+
+    .input-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .input-help {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .provider-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .provider-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+    }
+
+    .provider-item:hover {
+      background: var(--primary-light);
+    }
+
+    .provider-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .provider-name {
+      font-weight: 600;
+    }
+
+    .status {
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+      width: fit-content;
+    }
+
+    .available {
+      background: var(--success-bg);
+      color: var(--success);
+    }
+
+    .unavailable {
+      background: var(--error-bg);
+      color: var(--error);
+    }
+
+    .summary {
+      background: #f1f5f9;
+      padding: 20px;
+      border-radius: var(--radius);
+      margin-top: 20px;
+      display: none;
+      border-left: 4px solid var(--primary);
+      box-shadow: var(--shadow);
+    }
+
+    .summary.show {
+      display: block;
+    }
+
+    .summary-title {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      color: var(--text-dark);
+    }
+
+    .info,
+    .modal-info {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 14px 20px;
+      border-radius: var(--radius);
+      color: white;
+      font-weight: 600;
+      z-index: 1001;
+      box-shadow: var(--shadow-lg);
+      transform: translateX(150%);
+      max-width: 300px;
+      transition: transform 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .notification.show {
+      transform: translateX(0);
+    }
+
+    .notification.success {
+      background: var(--success);
+    }
+
+    .notification.error {
+      background: var(--error);
+    }
+
+    .notification.warning {
+      background: var(--warning);
+    }
+
+    .notification.info {
+      background: var(--secondary);
+    }
+
+    .notification-icon {
+      font-size: 1.2rem;
+    }
+
+    .promotion-banner {
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+      color: white;
+      padding: 16px;
+      border-radius: var(--radius);
+      margin-top: 20px;
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      box-shadow: var(--shadow);
+    }
+
+    .promotion-banner.show {
+      display: flex;
+    }
+
+    .promotion-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      border-radius: var(--radius-sm);
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-right: 12px;
+    }
+
+    .promotion-content h3 {
+      margin-bottom: 6px;
+      font-size: 1.1rem;
+    }
+
+    .promotion-content p {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 10px;
+    }
+
+    .promotion-btn {
+      background: white;
+      color: var(--secondary);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s ease;
+    }
+
+    .promotion-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+    }
+
+    .promotion-close {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 4px;
+      align-self: flex-start;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--overlay);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      padding: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: white;
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 400px;
+      padding: 24px;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--muted);
+      padding: 4px;
+      transition: color 0.2s ease;
+    }
+
+    .close-modal:hover {
+      color: var(--text);
+    }
+
+    .price-list {
+      list-style: none;
+    }
+
+    .price-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .price-item:last-child {
+      border-bottom: none;
+    }
+
+    .price-value {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 12px;
+      }
+      .section {
+        padding: 16px;
+      }
+      .logo-text {
+        font-size: 1.2rem;
+      }
+      .btn-sm {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+      .progress-step {
+        font-size: 0.7rem;
+        padding: 6px 8px;
+      }
+      .promotion-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .promotion-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div id="notification" class="notification" aria-live="polite"></div>
+  <div id="notification" class="notification" aria-live="polite">
+    <span class="notification-icon"></span>
+    <span class="notification-text"></span>
+  </div>
   
   <header>
-    <h1>SC</h1>
+    <div class="logo">
+      <div class="logo-icon">SC</div>
+      <div class="logo-text">Sojolo Cell</div>
+    </div>
     <div class="header-btns">
       <button class="btn-sm" id="openPricesBtn">📊</button>
       <button class="btn-sm" id="downloadAppBtn">📥</button>
@@ -82,9 +640,7 @@
     </div>
 
     <div class="promotion-banner" id="promotionBanner">
-      <div class="promotion-logo">
-        <img src="https://github.com/sojololite/cell/raw/refs/heads/main/SC.jpeg" alt="Sojolo Cell" width="50" height="50">
-      </div>
+      <div class="promotion-logo">SC</div>
       <div class="promotion-content">
         <h3>¿Necesitas más servicios?</h3>
         <p>Visita nuestra plataforma de negocios para más opciones</p>
@@ -124,6 +680,428 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      // Estado de la aplicación
+      const state = {
+        amount: null,
+        provider: null,
+        userPhone: '',
+        step: 1,
+        promotionShown: localStorage.getItem('promotionShown') !== 'true',
+        providers: [],
+        notifications: [
+          { message: "¡Bienvenido a Sojolo Cell!", type: "info", icon: "👋" },
+          { message: "Recuerda verificar los precios antes de realizar tu pedido", type: "info", icon: "💡" },
+          { message: "Asegúrate de que tu número de teléfono sea correcto", type: "info", icon: "📱" },
+          { message: "Los proveedores pueden cambiar sin previo aviso", type: "info", icon: "⚠️" }
+        ],
+        notificationInterval: null
+      };
+
+      // Cache de elementos DOM
+      const el = {
+        amountOpts: document.querySelectorAll('.option[data-amount]'),
+        customOpt: document.getElementById('customOption'),
+        customDiv: document.getElementById('customInputDiv'),
+        customInp: document.getElementById('customAmountInput'),
+        provSec: document.getElementById('providerSection'),
+        provList: document.querySelector('.provider-list'),
+        phoneSec: document.getElementById('phoneInputSection'),
+        phoneInp: document.getElementById('userPhone'),
+        btn: document.getElementById('whatsappBtn'),
+        summary: document.getElementById('summaryBox'),
+        sumAmt: document.getElementById('summaryAmount'),
+        sumPrv: document.getElementById('summaryProvider'),
+        sumPhn: document.getElementById('summaryUserPhone'),
+        openPrices: document.getElementById('openPricesBtn'),
+        downloadApp: document.getElementById('downloadAppBtn'),
+        openPrivacy: document.getElementById('openPrivacyBtn'),
+        pricesModal: document.getElementById('pricesModal'),
+        privacyModal: document.getElementById('privacyModal'),
+        closePrices: document.getElementById('closePricesModal'),
+        closePrivacy: document.getElementById('closePrivacyModal'),
+        progressSteps: document.querySelectorAll('.progress-step'),
+        notification: document.getElementById('notification'),
+        notificationIcon: document.querySelector('.notification-icon'),
+        notificationText: document.querySelector('.notification-text'),
+        promotionBanner: document.getElementById('promotionBanner'),
+        closePromotion: document.getElementById('closePromotion')
+      };
+
+      // Utilidades
+      const utils = {
+        sanitizePhone: (str) => str.replace(/[^\d+]/g, ''),
+        
+        validateCubanPhone: (phone) => {
+          const cleanPhone = phone.replace(/\D/g, '');
+          return /^(53)?5\d{7}$/.test(cleanPhone);
+        },
+        
+        showNotification: (message, type = 'success', icon = '✓', duration = 4000) => {
+          el.notificationIcon.textContent = icon;
+          el.notificationText.textContent = message;
+          el.notification.className = `notification ${type} show`;
+          
+          setTimeout(() => {
+            el.notification.classList.remove('show');
+          }, duration);
+        },
+        
+        updateStep: (step) => {
+          state.step = step;
+          el.progressSteps.forEach((stepEl, index) => {
+            if (index + 1 <= step) {
+              stepEl.classList.add('active');
+            } else {
+              stepEl.classList.remove('active');
+            }
+          });
+        },
+        
+        saveState: () => {
+          try {
+            localStorage.setItem('sojoloState', JSON.stringify({
+              amount: state.amount,
+              userPhone: state.userPhone
+            }));
+          } catch (e) {
+            console.warn('No se pudo guardar el estado:', e);
+          }
+        },
+        
+        loadState: () => {
+          try {
+            const savedState = localStorage.getItem('sojoloState');
+            if (savedState) {
+              const parsed = JSON.parse(savedState);
+              if (parsed.amount) {
+                state.amount = parsed.amount;
+                el.sumAmt.textContent = state.amount;
+              }
+              if (parsed.userPhone) {
+                state.userPhone = parsed.userPhone;
+                el.phoneInp.value = parsed.userPhone;
+                el.sumPhn.textContent = state.userPhone;
+              }
+            }
+          } catch (e) {
+            console.warn('No se pudo cargar el estado guardado:', e);
+          }
+        },
+
+        showPromotion: () => {
+          if (state.promotionShown) {
+            el.promotionBanner.classList.add('show');
+          }
+        },
+
+        hidePromotion: () => {
+          el.promotionBanner.classList.remove('show');
+          localStorage.setItem('promotionShown', 'true');
+          state.promotionShown = false;
+        },
+
+        // API para obtener proveedores
+        fetchProviders: async () => {
+          try {
+            const mockProviders = [
+              { id: 1, name: "Proveedor 1", phone: "+53 5 6584673", available: true },
+              { id: 2, name: "Proveedor 2", phone: "+53 5 0728907", available: true },
+              { id: 3, name: "Proveedor 3", phone: "+53 5 5384257", available: true },
+              { id: 4, name: "Proveedor 4", phone: "+53 63175552", available: true },
+              { id: 5, name: "Proveedor 5", phone: "+53 50369270", available: false }
+            ];
+            
+            for (let i = 6; i <= 50; i++) {
+              mockProviders.push({
+                id: i,
+                name: `Proveedor ${i}`,
+                phone: `+53 5${Math.floor(1000000 + Math.random() * 9000000)}`,
+                available: Math.random() > 1.0
+              });
+            }
+            
+            return mockProviders;
+          } catch (error) {
+            console.error('Error al cargar proveedores:', error);
+            return [];
+          }
+        },
+
+        // Renderizar lista de proveedores
+        renderProviders: (providers) => {
+          el.provList.innerHTML = '';
+          
+          providers.forEach(provider => {
+            const providerEl = document.createElement('div');
+            providerEl.className = `option provider-item ${provider.available ? '' : 'disabled'}`;
+            providerEl.dataset.provider = provider.phone;
+            providerEl.dataset.available = provider.available;
+            
+            providerEl.innerHTML = `
+              <div class="provider-info">
+                <span class="provider-name">${provider.name}</span>
+                <span class="status ${provider.available ? 'available' : 'unavailable'}">
+                  ${provider.available ? 'Disponible' : 'No disponible'}
+                </span>
+              </div>
+            `;
+            
+            if (provider.available) {
+              providerEl.addEventListener('click', () => selectProvider(provider));
+              providerEl.setAttribute('role', 'button');
+              providerEl.setAttribute('tabindex', '0');
+              
+              providerEl.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  providerEl.click();
+                }
+              });
+            }
+            
+            el.provList.appendChild(providerEl);
+          });
+        },
+
+        // Iniciar notificaciones recurrentes
+        startRecurrentNotifications: () => {
+          let notificationIndex = 0;
+          
+          setTimeout(() => {
+            const notification = state.notifications[0];
+            utils.showNotification(notification.message, notification.type, notification.icon, 5000);
+            notificationIndex = 1;
+          }, 5000);
+          
+          state.notificationInterval = setInterval(() => {
+            if (notificationIndex < state.notifications.length) {
+              const notification = state.notifications[notificationIndex];
+              utils.showNotification(notification.message, notification.type, notification.icon, 5000);
+              notificationIndex = (notificationIndex + 1) % state.notifications.length;
+            }
+          }, 30000);
+        },
+
+        // Detener notificaciones
+        stopRecurrentNotifications: () => {
+          if (state.notificationInterval) {
+            clearInterval(state.notificationInterval);
+            state.notificationInterval = null;
+          }
+        },
+
+        // Verificar si las notificaciones están permitidas
+        checkNotificationPermission: () => {
+          if ('Notification' in window) {
+            if (Notification.permission === 'default') {
+              Notification.requestPermission();
+            }
+          }
+        },
+
+        // Mostrar notificación del sistema
+        showSystemNotification: (title, body) => {
+          if ('Notification' in window && Notification.permission === 'granted') {
+            new Notification(title, { body, icon: '/favicon.ico' });
+          }
+        }
+      };
+
+      // Funciones de selección
+      const selectProvider = (provider) => {
+        if (!provider.available) return;
+        
+        document.querySelectorAll('.provider-item').forEach(item => {
+          item.classList.remove('selected');
+        });
+        
+        const selectedEl = Array.from(document.querySelectorAll('.provider-item'))
+          .find(el => el.dataset.provider === provider.phone);
+        
+        if (selectedEl) {
+          selectedEl.classList.add('selected');
+        }
+        
+        state.provider = provider.phone;
+        el.phoneSec.style.display = 'block';
+        el.phoneInp.focus();
+        utils.updateStep(3);
+        updateUI();
+        utils.showNotification('Proveedor seleccionado', 'success', '✅');
+      };
+
+      // Actualizar UI
+      const updateUI = () => {
+        el.sumAmt.textContent = state.amount || '—';
+        el.sumPrv.textContent = state.provider ? `Proveedor ${state.provider.split(' ')[2]}` : '—';
+        el.sumPhn.textContent = state.userPhone || '—';
+        
+        el.summary.classList.toggle('show', !!state.amount && !!state.provider);
+        
+        const isPhoneValid = utils.validateCubanPhone(state.userPhone);
+        el.btn.disabled = !(state.amount && state.provider && isPhoneValid);
+        
+        if (state.amount && !state.provider) {
+          utils.updateStep(2);
+        } else if (state.amount && state.provider && !state.userPhone) {
+          utils.updateStep(3);
+        } else if (state.amount && state.provider && state.userPhone) {
+          utils.updateStep(4);
+        }
+        
+        utils.saveState();
+
+        if (state.amount && state.provider && state.userPhone) {
+          setTimeout(utils.showPromotion, 2000);
+        }
+      };
+
+      // Inicialización
+      const init = async () => {
+        utils.loadState();
+        utils.checkNotificationPermission();
+        
+        // Cargar proveedores
+        state.providers = await utils.fetchProviders();
+        utils.renderProviders(state.providers);
+        
+        // Iniciar notificaciones recurrentes
+        utils.startRecurrentNotifications();
+        
+        // Mostrar banner promocional después de 8 segundos
+        setTimeout(() => {
+          if (Math.random() < 0.8) {
+            utils.showPromotion();
+          }
+        }, 8000);
+        
+        // Event Listeners
+        el.downloadApp.addEventListener('click', () => {
+          window.open('https://github.com/sojololite/cell/raw/refs/heads/main/Sojolo%20Cell.apk', '_blank');
+          utils.showNotification('Descargando aplicación...', 'success', '📥');
+        });
+
+        el.amountOpts.forEach((opt) => {
+          opt.addEventListener('click', () => {
+            el.amountOpts.forEach((o) => o.classList.remove('selected'));
+            opt.classList.add('selected');
+            state.amount = `${opt.dataset.amount} CUP`;
+            el.provSec.style.display = 'block';
+            utils.updateStep(2);
+            updateUI();
+            utils.showNotification(`Cantidad seleccionada: ${state.amount}`, 'success', '✅');
+          });
+          
+          opt.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              opt.click();
+            }
+          });
+        });
+
+        el.customOpt.addEventListener('click', () => {
+          const isActive = el.customDiv.style.display === 'block';
+          el.amountOpts.forEach((o) => o.classList.remove('selected'));
+          el.customOpt.classList.toggle('selected', !isActive);
+          el.customDiv.style.display = isActive ? 'none' : 'block';
+          if (!isActive) el.customInp.focus();
+          state.amount = isActive ? null : '';
+          el.provSec.style.display = isActive ? 'none' : 'none';
+          utils.updateStep(isActive ? 1 : 2);
+          updateUI();
+          
+          if (!isActive) {
+            utils.showNotification('Ingresa la cantidad deseada', 'info', '💡');
+          }
+        });
+
+        el.customInp.addEventListener('input', () => {
+          const val = el.customInp.value.trim();
+          state.amount = val && !isNaN(val) && Number(val) > 0 ? `${val} CUP` : null;
+          el.provSec.style.display = state.amount ? 'block' : 'none';
+          utils.updateStep(state.amount ? 2 : 1);
+          updateUI();
+        });
+
+        el.phoneInp.addEventListener('input', () => {
+          state.userPhone = utils.sanitizePhone(el.phoneInp.value);
+          
+          if (state.userPhone && !utils.validateCubanPhone(state.userPhone)) {
+            el.phoneInp.style.borderColor = 'var(--error)';
+            utils.showNotification('Formato de teléfono incorrecto', 'error', '❌', 3000);
+          } else {
+            el.phoneInp.style.borderColor = 'var(--border)';
+          }
+          
+          updateUI();
+        });
+
+        el.btn.addEventListener('click', () => {
+          if (!state.amount || !state.provider || !state.userPhone) return;
+          
+          if (!utils.validateCubanPhone(state.userPhone)) {
+            utils.showNotification('Por favor, ingresa un número de teléfono válido', 'error', '❌');
+            el.phoneInp.focus();
+            return;
+          }
+          
+          const msg = `Hola, lo contacte atravez de la plataforma Sojolo Cell, necesito una transferencia de saldo, mi número es: ${state.userPhone} por un monto de ${state.amount}. ¡dígame cómo sería el pago!`;
+          const providerNumber = state.provider.replace(/\D/g, '');
+          const url = `https://wa.me/${providerNumber}?text=${encodeURIComponent(msg)}`;
+          
+          window.open(url, '_blank', 'noopener,noreferrer');
+          utils.showNotification('Redirigiendo a WhatsApp...', 'success', '💬');
+        });
+
+        const openModal = (modal) => {
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        };
+
+        const closeModal = (modal) => {
+          modal.classList.remove('active');
+          document.body.style.overflow = '';
+        };
+
+        el.openPrices.addEventListener('click', () => openModal(el.pricesModal));
+        el.openPrivacy.addEventListener('click', () => openModal(el.privacyModal));
+        el.closePrices.addEventListener('click', () => closeModal(el.pricesModal));
+        el.closePrivacy.addEventListener('click', () => closeModal(el.privacyModal));
+
+        [el.pricesModal, el.privacyModal].forEach((modal) => {
+          modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal(modal);
+          });
+        });
+
+        el.closePromotion.addEventListener('click', utils.hidePromotion);
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            [el.pricesModal, el.privacyModal].forEach(closeModal);
+          }
+        });
+
+        // Limpiar recursos al salir
+        window.addEventListener('beforeunload', () => {
+          utils.stopRecurrentNotifications();
+        });
+
+        updateUI();
+        utils.updateStep(1);
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
 </body>
 </html>
