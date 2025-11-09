@@ -1,16 +1,33 @@
-# Sojolo Cell
+# SOJOLO CELL
 
-Sojolo Cell es una **herramienta de contacto** diseñada para facilitar la comunicación entre compradores y vendedores de saldo móvil. **No participamos** en las transacciones ni actuamos como intermediarios en ningún intercambio.
+<div align="center">
 
-> **Importante**: Al utilizar esta plataforma, aceptas que lo haces bajo tu **propio riesgo**.
+![Version](https://img.shields.io/badge/version-2.0.0-success?style=for-the-badge)
 
-## ⚠️ Aviso de responsabilidad
+![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
 
-Sojolo Cell **no se hace responsable** de:
+![Platform](https://img.shields.io/badge/platform-Web-brightgreen?style=for-the-badge)
 
-- Fraudes o estafas.
-- Errores en las transacciones.
-- Saldos no recibidos.
-- Cualquier otro problema derivado del uso de esta plataforma.
+![Status](https://img.shields.io/badge/status-Active-blue?style=for-the-badge)
 
-Esta herramienta tiene un propósito exclusivamente informativo y de conexión entre usuarios. **No garantizamos** la fiabilidad, seguridad ni éxito de ninguna transacción realizada a través de los contactos facilitados.
+## 🚀 Acerca de la plataforma
+
+**SOJOLO CELL** es una plataforma web moderna especializada en la compra y venta de saldo móvil. Ofrecemos un espacio seguro y confiable para que los usuarios puedan comprar o vender saldo de manera directa, sin necesidad de recurrir a redes sociales donde puede ser estafado o engañado con publicaciones falsas y más.
+
+## 📞 Contáctanos
+
+<div align="center">
+
+[![Gmail](https://img.shields.io/badge/Email-info@sojolocell.com-red?style=for-the-badge&logo=gmail)](mailto:info@sojolocell.com)
+
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/1234567890)
+
+[![Facebook](https://img.shields.io/badge/Facebook-1877F2?style=for-the-badge&logo=facebook&logoColor=white)](https://facebook.com/sojolocell)
+
+</div>
+
+<div align="center">
+
+**SOJOLO CELL** © 2025 - *Tu plataforma confiable para comprar y vender saldo móvil*
+
+</div>
