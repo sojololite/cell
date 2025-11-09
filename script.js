@@ -1,21 +1,31 @@
 (function () {
   'use strict';
 
+  // Estado de la aplicación
   const state = {
     amount: null,
     provider: null,
     userPhone: '',
     step: 1,
-    promotionShown: localStorage.getItem('promotionShown') !== 'true'
+    promotionShown: localStorage.getItem('promotionShown') !== 'true',
+    providers: [],
+    notifications: [
+      "¡Bienvenido a Sojolo Cell!",
+      "Recuerda verificar los precios antes de realizar tu pedido",
+      "Asegúrate de que tu número de teléfono sea correcto",
+      "Los proveedores pueden cambiar sin previo aviso"
+    ],
+    notificationInterval: null
   };
 
+  // Cache de elementos DOM
   const el = {
     amountOpts: document.querySelectorAll('.option[data-amount]'),
     customOpt: document.getElementById('customOption'),
     customDiv: document.getElementById('customInputDiv'),
     customInp: document.getElementById('customAmountInput'),
     provSec: document.getElementById('providerSection'),
-    provOpts: document.querySelectorAll('.provider-item'),
+    provList: document.querySelector('.provider-list'),
     phoneSec: document.getElementById('phoneInputSection'),
     phoneInp: document.getElementById('userPhone'),
     btn: document.getElementById('whatsappBtn'),
@@ -30,13 +40,13 @@
     privacyModal: document.getElementById('privacyModal'),
     closePrices: document.getElementById('closePricesModal'),
     closePrivacy: document.getElementById('closePrivacyModal'),
-    progressIndicator: document.getElementById('progressIndicator'),
     progressSteps: document.querySelectorAll('.progress-step'),
     notification: document.getElementById('notification'),
     promotionBanner: document.getElementById('promotionBanner'),
     closePromotion: document.getElementById('closePromotion')
   };
 
+  // Utilidades
   const utils = {
     sanitizePhone: (str) => str.replace(/[^\d+]/g, ''),
     
@@ -106,9 +116,142 @@
       el.promotionBanner.classList.remove('show');
       localStorage.setItem('promotionShown', 'true');
       state.promotionShown = false;
+    },
+
+    // API para obtener proveedores
+    fetchProviders: async () => {
+      try {
+        // En una implementación real, esto sería una llamada a tu API
+        // Por ahora simulamos una respuesta con algunos proveedores no disponibles
+        const mockProviders = [
+          { id: 1, name: "Proveedor 1", phone: "+53 5 6584673", available: true },
+          { id: 2, name: "Proveedor 2", phone: "+53 5 0728907", available: true },
+          { id: 3, name: "Proveedor 3", phone: "+53 5 5384257", available: true },
+          { id: 4, name: "Proveedor 4", phone: "+53 63175552", available: true },
+          { id: 5, name: "Proveedor 5", phone: "+53 50369270", available: false }
+        ];
+        
+        // Simular más proveedores para demostrar la funcionalidad de scroll
+        for (let i = 6; i <= 100; i++) {
+          mockProviders.push({
+            id: i,
+            name: `Proveedor ${i}`,
+            phone: `+53 5${Math.floor(1000000 + Math.random() * 9000000)}`,
+            available: Math.random() > 100 // 70% de disponibilidad
+          });
+        }
+        
+        return mockProviders;
+      } catch (error) {
+        console.error('Error al cargar proveedores:', error);
+        return [];
+      }
+    },
+
+    // Renderizar lista de proveedores
+    renderProviders: (providers) => {
+      el.provList.innerHTML = '';
+      
+      providers.forEach(provider => {
+        const providerEl = document.createElement('div');
+        providerEl.className = `option provider-item ${provider.available ? '' : 'disabled'}`;
+        providerEl.dataset.provider = provider.phone;
+        providerEl.dataset.available = provider.available;
+        
+        providerEl.innerHTML = `
+          <div class="provider-info">
+            <span class="provider-name">${provider.name}</span>
+            <span class="status ${provider.available ? 'available' : 'unavailable'}">
+              ${provider.available ? 'Disponible' : 'No disponible'}
+            </span>
+          </div>
+        `;
+        
+        if (provider.available) {
+          providerEl.addEventListener('click', () => selectProvider(provider));
+          providerEl.setAttribute('role', 'button');
+          providerEl.setAttribute('tabindex', '0');
+          
+          providerEl.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              providerEl.click();
+            }
+          });
+        }
+        
+        el.provList.appendChild(providerEl);
+      });
+    },
+
+    // Iniciar notificaciones recurrentes
+    startRecurrentNotifications: () => {
+      let notificationIndex = 0;
+      
+      // Mostrar primera notificación después de 5 segundos
+      setTimeout(() => {
+        utils.showNotification(state.notifications[0], 'info', 5000);
+        notificationIndex = 1;
+      }, 5000);
+      
+      // Configurar intervalo para notificaciones recurrentes
+      state.notificationInterval = setInterval(() => {
+        if (notificationIndex < state.notifications.length) {
+          utils.showNotification(state.notifications[notificationIndex], 'info', 5000);
+          notificationIndex = (notificationIndex + 1) % state.notifications.length;
+        }
+      }, 30000); // Cada 30 segundos
+    },
+
+    // Detener notificaciones
+    stopRecurrentNotifications: () => {
+      if (state.notificationInterval) {
+        clearInterval(state.notificationInterval);
+        state.notificationInterval = null;
+      }
+    },
+
+    // Verificar si las notificaciones están permitidas
+    checkNotificationPermission: () => {
+      if ('Notification' in window) {
+        if (Notification.permission === 'default') {
+          Notification.requestPermission();
+        }
+      }
+    },
+
+    // Mostrar notificación del sistema
+    showSystemNotification: (title, body) => {
+      if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification(title, { body, icon: '/favicon.ico' });
+      }
     }
   };
 
+  // Funciones de selección
+  const selectProvider = (provider) => {
+    if (!provider.available) return;
+    
+    document.querySelectorAll('.provider-item').forEach(item => {
+      item.classList.remove('selected');
+    });
+    
+    const selectedEl = Array.from(document.querySelectorAll('.provider-item'))
+      .find(el => el.dataset.provider === provider.phone);
+    
+    if (selectedEl) {
+      selectedEl.classList.add('selected');
+    }
+    
+    state.provider = provider.phone;
+    el.phoneSec.style.display = 'block';
+    el.phoneInp.focus();
+    utils.updateStep(3);
+    updateUI();
+    utils.showNotification('Proveedor seleccionado', 'success');
+  };
+
+  // Actualizar UI
   const updateUI = () => {
     el.sumAmt.textContent = state.amount || '—';
     el.sumPrv.textContent = state.provider ? `Proveedor ${state.provider.split(' ')[2]}` : '—';
@@ -134,15 +277,26 @@
     }
   };
 
-  const init = () => {
+  // Inicialización
+  const init = async () => {
     utils.loadState();
+    utils.checkNotificationPermission();
     
+    // Cargar proveedores
+    state.providers = await utils.fetchProviders();
+    utils.renderProviders(state.providers);
+    
+    // Iniciar notificaciones recurrentes
+    utils.startRecurrentNotifications();
+    
+    // Mostrar banner promocional después de 8 segundos
     setTimeout(() => {
       if (Math.random() < 0.8) {
         utils.showPromotion();
       }
     }, 8000);
     
+    // Event Listeners
     el.downloadApp.addEventListener('click', () => {
       window.open('https://github.com/sojololite/cell/raw/refs/heads/main/Sojolo%20Cell.apk', '_blank');
       utils.showNotification('Descargando aplicación...', 'success');
@@ -189,26 +343,6 @@
       el.provSec.style.display = state.amount ? 'block' : 'none';
       utils.updateStep(state.amount ? 2 : 1);
       updateUI();
-    });
-
-    el.provOpts.forEach((opt) => {
-      opt.addEventListener('click', () => {
-        el.provOpts.forEach((o) => o.classList.remove('selected'));
-        opt.classList.add('selected');
-        state.provider = opt.dataset.provider;
-        el.phoneSec.style.display = 'block';
-        el.phoneInp.focus();
-        utils.updateStep(3);
-        updateUI();
-        utils.showNotification('Proveedor seleccionado', 'success');
-      });
-      
-      opt.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          opt.click();
-        }
-      });
     });
 
     el.phoneInp.addEventListener('input', () => {
@@ -270,16 +404,9 @@
       }
     });
 
-    window.addEventListener('error', (e) => {
-      console.error('Error capturado:', e.error);
-      utils.showNotification('Ha ocurrido un error inesperado', 'error');
-    });
-
-    window.addEventListener('beforeunload', (e) => {
-      if (state.amount || state.provider || state.userPhone) {
-        e.preventDefault();
-        e.returnValue = '';
-      }
+    // Limpiar recursos al salir
+    window.addEventListener('beforeunload', () => {
+      utils.stopRecurrentNotifications();
     });
 
     updateUI();
