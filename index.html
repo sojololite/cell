@@ -122,6 +122,14 @@
       transform: none;
     }
 
+    .btn-secondary {
+      background: var(--secondary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--secondary-dark);
+    }
+
     .progress-indicator {
       display: flex;
       justify-content: space-between;
@@ -176,6 +184,110 @@
       color: var(--text-dark);
     }
 
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .login-form input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .login-form input:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+    }
+
+    .input-help {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .captcha-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .captcha-display {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px;
+      background: white;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      font-family: 'Courier New', monospace;
+      font-size: 1.4rem;
+      font-weight: bold;
+      letter-spacing: 3px;
+      color: var(--text-dark);
+      user-select: none;
+    }
+
+    .captcha-controls {
+      display: flex;
+      gap: 10px;
+    }
+
+    .captcha-controls button {
+      flex: 1;
+      padding: 8px;
+      background: var(--secondary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s ease;
+    }
+
+    .captcha-controls button:hover {
+      background: var(--secondary-dark);
+    }
+
+    .captcha-input {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      text-align: center;
+      letter-spacing: 2px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .captcha-input:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+    }
+
     .options-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -227,14 +339,12 @@
       margin-top: 4px;
     }
 
-    .custom-input,
-    .phone-input {
+    .custom-input {
       margin-top: 12px;
       display: none;
     }
 
-    .custom-input input,
-    .phone-input input {
+    .custom-input input {
       width: 100%;
       padding: 12px;
       border: 2px solid var(--border);
@@ -243,24 +353,10 @@
       transition: all 0.2s ease;
     }
 
-    .custom-input input:focus,
-    .phone-input input:focus {
+    .custom-input input:focus {
       border-color: var(--primary);
       outline: none;
       box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
-    }
-
-    .input-label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: var(--text-dark);
-    }
-
-    .input-help {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-top: 6px;
     }
 
     .provider-list {
@@ -310,26 +406,6 @@
     .unavailable {
       background: var(--error-bg);
       color: var(--error);
-    }
-
-    .summary {
-      background: #f1f5f9;
-      padding: 20px;
-      border-radius: var(--radius);
-      margin-top: 20px;
-      display: none;
-      border-left: 4px solid var(--primary);
-      box-shadow: var(--shadow);
-    }
-
-    .summary.show {
-      display: block;
-    }
-
-    .summary-title {
-      font-size: 1.1rem;
-      margin-bottom: 12px;
-      color: var(--text-dark);
     }
 
     .info,
@@ -555,6 +631,23 @@
       transform: translateY(-1px);
     }
 
+    .client-info {
+      background: var(--primary-light);
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 16px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .client-info p {
+      margin: 4px 0;
+      font-size: 0.9rem;
+    }
+
+    .client-info strong {
+      color: var(--primary-dark);
+    }
+
     @media (max-width: 480px) {
       body {
         padding: 12px;
@@ -589,6 +682,9 @@
       .contact-buttons {
         flex-direction: column;
       }
+      .captcha-controls {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
@@ -611,14 +707,50 @@
   </header>
 
   <main>
+    <!-- Sección de Login -->
+    <section class="section" id="loginSection">
+      <h2 class="section-title">🔐 Iniciar Sesión</h2>
+      <div class="login-form">
+        <div class="input-group">
+          <label for="clientName" class="input-label">Nombre completo</label>
+          <input type="text" id="clientName" placeholder="Ej: Juan Pérez García" autocomplete="name" />
+        </div>
+        <div class="input-group">
+          <label for="clientPhone" class="input-label">Tu número de móvil</label>
+          <input type="tel" id="clientPhone" placeholder="Ej: +53 5XXXXXXX" autocomplete="tel" inputmode="tel" />
+          <p id="phoneHelp" class="input-help">Formato: +53 seguido de 8 dígitos</p>
+        </div>
+        
+        <div class="captcha-container">
+          <div class="captcha-display" id="captchaDisplay">
+            <span id="captchaText"></span>
+            <button type="button" id="refreshCaptcha" style="background: none; border: none; cursor: pointer; font-size: 1.2rem;">🔄</button>
+          </div>
+          <div class="captcha-controls">
+            <button type="button" id="audioCaptcha">🔊 Audio</button>
+            <button type="button" id="newCaptcha">🔄 Nuevo</button>
+          </div>
+          <input type="text" id="captchaInput" class="captcha-input" placeholder="Ingresa el código" maxlength="6" />
+        </div>
+        
+        <button class="btn" id="loginBtn">Iniciar Sesión</button>
+      </div>
+    </section>
+
     <div class="progress-indicator" id="progressIndicator">
-      <div class="progress-step active" data-step="1">Cantidad</div>
-      <div class="progress-step" data-step="2">Proveedor</div>
-      <div class="progress-step" data-step="3">Teléfono</div>
+      <div class="progress-step active" data-step="1">Login</div>
+      <div class="progress-step" data-step="2">Cantidad</div>
+      <div class="progress-step" data-step="3">Proveedor</div>
       <div class="progress-step" data-step="4">Confirmar</div>
     </div>
 
-    <section class="section" id="amountSection">
+    <!-- Información del cliente -->
+    <div class="client-info" id="clientInfo" style="display: none;">
+      <p><strong>Cliente:</strong> <span id="displayClientName"></span></p>
+      <p><strong>Teléfono:</strong> <span id="displayClientPhone"></span></p>
+    </div>
+
+    <section class="section" id="amountSection" style="display: none;">
       <h2 class="section-title">🪙 Seleccione la cantidad</h2>
       <div class="options-grid">
         <div class="option" data-amount="120" role="button" tabindex="0">
@@ -673,20 +805,7 @@
       </div>
     </section>
 
-    <div class="phone-input" id="phoneInputSection" style="display: none;">
-      <label for="userPhone" class="input-label">Tu número de móvil</label>
-      <input type="tel" id="userPhone" placeholder="Ej: +53 5XXXXXXX" autocomplete="tel" inputmode="tel" />
-      <p id="phoneHelp" class="input-help">Formato: +53 seguido de 8 dígitos</p>
-    </div>
-
-    <button class="btn" id="whatsappBtn" disabled>💬 Solicitar</button>
-
-    <div class="summary" id="summaryBox">
-      <h3 class="summary-title">Resumen de tu solicitud</h3>
-      <p><strong>Cantidad:</strong> <span id="summaryAmount">—</span></p>
-      <p><strong>Proveedor:</strong> <span id="summaryProvider">—</span></p>
-      <p><strong>Tu número:</strong> <span id="summaryUserPhone">—</span></p>
-    </div>
+    <button class="btn" id="whatsappBtn" style="display: none;">💬 Solicitar Transferencia</button>
 
     <div class="promotion-banner" id="promotionBanner">
       <div class="promotion-logo">SC</div>
@@ -743,10 +862,12 @@
       'use strict';
 
       const state = {
+        clientName: '',
+        clientPhone: '',
         amount: null,
         provider: null,
-        userPhone: '',
         step: 1,
+        captchaCode: '',
         promotionShown: localStorage.getItem('promotionShown') !== 'true',
         notifications: [
           { message: "¡Bienvenido a Sojolo Cell!", type: "info", icon: "👋" },
@@ -754,23 +875,31 @@
           { message: "Asegúrate de que tu número de teléfono sea correcto", type: "info", icon: "📱" },
           { message: "Los proveedores pueden cambiar sin previo aviso", type: "info", icon: "⚠️" }
         ],
-        notificationInterval: null
+        notificationInterval: null,
+        autoSaveInterval: null
       };
 
       const el = {
+        loginSection: document.getElementById('loginSection'),
+        clientName: document.getElementById('clientName'),
+        clientPhone: document.getElementById('clientPhone'),
+        loginBtn: document.getElementById('loginBtn'),
+        clientInfo: document.getElementById('clientInfo'),
+        displayClientName: document.getElementById('displayClientName'),
+        displayClientPhone: document.getElementById('displayClientPhone'),
+        captchaDisplay: document.getElementById('captchaDisplay'),
+        captchaText: document.getElementById('captchaText'),
+        refreshCaptcha: document.getElementById('refreshCaptcha'),
+        audioCaptcha: document.getElementById('audioCaptcha'),
+        newCaptcha: document.getElementById('newCaptcha'),
+        captchaInput: document.getElementById('captchaInput'),
         amountOpts: document.querySelectorAll('.option[data-amount]'),
         customOpt: document.getElementById('customOption'),
         customDiv: document.getElementById('customInputDiv'),
         customInp: document.getElementById('customAmountInput'),
         provSec: document.getElementById('providerSection'),
         provList: document.querySelector('.provider-list'),
-        phoneSec: document.getElementById('phoneInputSection'),
-        phoneInp: document.getElementById('userPhone'),
         btn: document.getElementById('whatsappBtn'),
-        summary: document.getElementById('summaryBox'),
-        sumAmt: document.getElementById('summaryAmount'),
-        sumPrv: document.getElementById('summaryProvider'),
-        sumPhn: document.getElementById('summaryUserPhone'),
         openPrices: document.getElementById('openPricesBtn'),
         downloadApp: document.getElementById('downloadAppBtn'),
         openPrivacy: document.getElementById('openPrivacyBtn'),
@@ -783,7 +912,8 @@
         notificationIcon: document.querySelector('.notification-icon'),
         notificationText: document.querySelector('.notification-text'),
         promotionBanner: document.getElementById('promotionBanner'),
-        closePromotion: document.getElementById('closePromotion')
+        closePromotion: document.getElementById('closePromotion'),
+        amountSection: document.getElementById('amountSection')
       };
 
       const utils = {
@@ -792,6 +922,10 @@
         validateCubanPhone: (phone) => {
           const cleanPhone = phone.replace(/\D/g, '');
           return /^(53)?5\d{7}$/.test(cleanPhone);
+        },
+        
+        validateName: (name) => {
+          return name.trim().length >= 3 && /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(name);
         },
         
         showNotification: (message, type = 'success', icon = '✓', duration = 4000) => {
@@ -815,35 +949,103 @@
           });
         },
         
-        saveState: () => {
-          try {
-            localStorage.setItem('sojoloState', JSON.stringify({
-              amount: state.amount,
-              userPhone: state.userPhone
-            }));
-          } catch (e) {
-            console.warn('No se pudo guardar el estado:', e);
+        generateCaptcha: () => {
+          const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+          let captcha = '';
+          for (let i = 0; i < 6; i++) {
+            captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+          }
+          state.captchaCode = captcha;
+          el.captchaText.textContent = captcha;
+          el.captchaInput.value = '';
+          return captcha;
+        },
+        
+        speakCaptcha: () => {
+          if ('speechSynthesis' in window) {
+            const utterance = new SpeechSynthesisUtterance(state.captchaCode);
+            utterance.lang = 'es-ES';
+            utterance.rate = 0.8;
+            speechSynthesis.speak(utterance);
+          } else {
+            utils.showNotification('Tu navegador no soporta síntesis de voz', 'warning', '⚠️');
           }
         },
         
-        loadState: () => {
+        validateCaptcha: () => {
+          return el.captchaInput.value.toUpperCase() === state.captchaCode.toUpperCase();
+        },
+        
+        // Guardado automático usando localStorage
+        autoSaveState: () => {
           try {
-            const savedState = localStorage.getItem('sojoloState');
+            const stateToSave = {
+              clientName: state.clientName,
+              clientPhone: state.clientPhone,
+              amount: state.amount,
+              provider: state.provider,
+              step: state.step,
+              lastSaved: new Date().toISOString()
+            };
+            localStorage.setItem('sojoloCellState', JSON.stringify(stateToSave));
+          } catch (e) {
+            console.warn('No se pudo guardar el estado automáticamente:', e);
+          }
+        },
+        
+        loadSavedState: () => {
+          try {
+            const savedState = localStorage.getItem('sojoloCellState');
             if (savedState) {
               const parsed = JSON.parse(savedState);
-              if (parsed.amount) {
-                state.amount = parsed.amount;
-                el.sumAmt.textContent = state.amount;
-              }
-              if (parsed.userPhone) {
-                state.userPhone = parsed.userPhone;
-                el.phoneInp.value = parsed.userPhone;
-                el.sumPhn.textContent = state.userPhone;
+              
+              // Cargar datos del cliente si existen
+              if (parsed.clientName && parsed.clientPhone) {
+                state.clientName = parsed.clientName;
+                state.clientPhone = parsed.clientPhone;
+                el.clientName.value = parsed.clientName;
+                el.clientPhone.value = parsed.clientPhone;
+                
+                // Si ya hay datos de cliente, mostrar secciones principales
+                el.loginSection.style.display = 'none';
+                el.clientInfo.style.display = 'block';
+                el.amountSection.style.display = 'block';
+                el.btn.style.display = 'block';
+                el.displayClientName.textContent = parsed.clientName;
+                el.displayClientPhone.textContent = parsed.clientPhone;
+                utils.updateStep(2);
+                
+                // Cargar selecciones previas si existen
+                if (parsed.amount) {
+                  state.amount = parsed.amount;
+                  // Seleccionar la opción correspondiente
+                  document.querySelectorAll('.option[data-amount]').forEach(opt => {
+                    if (opt.dataset.amount === parsed.amount.split(' ')[0]) {
+                      opt.classList.add('selected');
+                    }
+                  });
+                }
+                
+                if (parsed.provider) {
+                  state.provider = parsed.provider;
+                  document.querySelectorAll('.provider-item').forEach(provider => {
+                    if (provider.dataset.provider === parsed.provider) {
+                      provider.classList.add('selected');
+                      el.provSec.style.display = 'block';
+                    }
+                  });
+                }
+                
+                utils.showNotification('Datos cargados automáticamente', 'info', '🔄', 3000);
               }
             }
           } catch (e) {
             console.warn('No se pudo cargar el estado guardado:', e);
           }
+        },
+        
+        clearSavedState: () => {
+          localStorage.removeItem('sojoloCellState');
         },
 
         showPromotion: () => {
@@ -883,6 +1085,20 @@
           }
         },
 
+        startAutoSave: () => {
+          // Guardar cada 10 segundos
+          state.autoSaveInterval = setInterval(() => {
+            utils.autoSaveState();
+          }, 10000);
+        },
+
+        stopAutoSave: () => {
+          if (state.autoSaveInterval) {
+            clearInterval(state.autoSaveInterval);
+            state.autoSaveInterval = null;
+          }
+        },
+
         checkNotificationPermission: () => {
           if ('Notification' in window) {
             if (Notification.permission === 'default') {
@@ -898,6 +1114,44 @@
         }
       };
 
+      const handleLogin = () => {
+        const name = el.clientName.value.trim();
+        const phone = utils.sanitizePhone(el.clientPhone.value);
+        
+        if (!utils.validateName(name)) {
+          utils.showNotification('Por favor, ingresa un nombre válido (mínimo 3 caracteres, solo letras)', 'error', '❌');
+          el.clientName.focus();
+          return;
+        }
+        
+        if (!utils.validateCubanPhone(phone)) {
+          utils.showNotification('Formato de teléfono incorrecto. Ej: +53 51234567', 'error', '❌', 3000);
+          el.clientPhone.focus();
+          return;
+        }
+        
+        if (!utils.validateCaptcha()) {
+          utils.showNotification('El código de verificación es incorrecto', 'error', '❌');
+          el.captchaInput.focus();
+          utils.generateCaptcha();
+          return;
+        }
+        
+        state.clientName = name;
+        state.clientPhone = phone;
+        
+        el.loginSection.style.display = 'none';
+        el.clientInfo.style.display = 'block';
+        el.amountSection.style.display = 'block';
+        el.btn.style.display = 'block';
+        el.displayClientName.textContent = name;
+        el.displayClientPhone.textContent = phone;
+        
+        utils.updateStep(2);
+        utils.showNotification('¡Login exitoso! Tus datos se guardarán automáticamente', 'success', '✅');
+        utils.autoSaveState();
+      };
+
       const selectProvider = (providerElement) => {
         if (providerElement.dataset.available !== 'true') return;
         
@@ -908,46 +1162,42 @@
         providerElement.classList.add('selected');
         
         state.provider = providerElement.dataset.provider;
-        el.phoneSec.style.display = 'block';
-        el.phoneInp.focus();
-        utils.updateStep(3);
+        utils.updateStep(4);
         updateUI();
         utils.showNotification('Proveedor seleccionado', 'success', '✅');
+        utils.autoSaveState();
       };
 
       const updateUI = () => {
-        el.sumAmt.textContent = state.amount || '—';
-        el.sumPrv.textContent = state.provider ? `Proveedor ${state.provider.split(' ')[2]}` : '—';
-        el.sumPhn.textContent = state.userPhone || '—';
-        
-        el.summary.classList.toggle('show', !!state.amount && !!state.provider);
-        
-        const isPhoneValid = utils.validateCubanPhone(state.userPhone);
-        el.btn.disabled = !(state.amount && state.provider && isPhoneValid);
+        el.btn.disabled = !(state.amount && state.provider);
         
         if (state.amount && !state.provider) {
           utils.updateStep(2);
-        } else if (state.amount && state.provider && !state.userPhone) {
-          utils.updateStep(3);
-        } else if (state.amount && state.provider && state.userPhone) {
+          el.provSec.style.display = 'block';
+        } else if (state.amount && state.provider) {
           utils.updateStep(4);
         }
         
-        utils.saveState();
+        utils.autoSaveState();
 
-        if (state.amount && state.provider && state.userPhone) {
+        if (state.amount && state.provider) {
           setTimeout(utils.showPromotion, 2000);
         }
       };
 
       const init = async () => {
-        utils.loadState();
-        utils.checkNotificationPermission();
+        // Cargar estado guardado automáticamente
+        utils.loadSavedState();
         
+        // Iniciar captcha
+        utils.generateCaptcha();
+        
+        utils.checkNotificationPermission();
         utils.startRecurrentNotifications();
+        utils.startAutoSave();
         
         setTimeout(() => {
-          if (Math.random() < 0.8) {
+          if (Math.random() < 0.8 && state.clientName) {
             utils.showPromotion();
           }
         }, 8000);
@@ -957,15 +1207,41 @@
           utils.showNotification('Descargando aplicación...', 'success', '📥');
         });
 
+        // Eventos del captcha
+        el.refreshCaptcha.addEventListener('click', () => utils.generateCaptcha());
+        el.audioCaptcha.addEventListener('click', () => utils.speakCaptcha());
+        el.newCaptcha.addEventListener('click', () => utils.generateCaptcha());
+
+        el.loginBtn.addEventListener('click', handleLogin);
+
+        el.clientName.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            handleLogin();
+          }
+        });
+
+        el.clientPhone.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            handleLogin();
+          }
+        });
+
+        el.captchaInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            handleLogin();
+          }
+        });
+
         el.amountOpts.forEach((opt) => {
           opt.addEventListener('click', () => {
             el.amountOpts.forEach((o) => o.classList.remove('selected'));
             opt.classList.add('selected');
             state.amount = `${opt.dataset.amount} CUP`;
             el.provSec.style.display = 'block';
-            utils.updateStep(2);
+            utils.updateStep(3);
             updateUI();
             utils.showNotification(`Cantidad seleccionada: ${state.amount}`, 'success', '✅');
+            utils.autoSaveState();
           });
           
           opt.addEventListener('keydown', (e) => {
@@ -984,8 +1260,9 @@
           if (!isActive) el.customInp.focus();
           state.amount = isActive ? null : '';
           el.provSec.style.display = isActive ? 'none' : 'none';
-          utils.updateStep(isActive ? 1 : 2);
+          utils.updateStep(isActive ? 2 : 3);
           updateUI();
+          utils.autoSaveState();
           
           if (!isActive) {
             utils.showNotification('Ingresa la cantidad deseada', 'info', '💡');
@@ -996,8 +1273,9 @@
           const val = el.customInp.value.trim();
           state.amount = val && !isNaN(val) && Number(val) > 0 ? `${val} CUP` : null;
           el.provSec.style.display = state.amount ? 'block' : 'none';
-          utils.updateStep(state.amount ? 2 : 1);
+          utils.updateStep(state.amount ? 3 : 2);
           updateUI();
+          utils.autoSaveState();
         });
 
         document.querySelectorAll('.provider-item').forEach(provider => {
@@ -1011,34 +1289,52 @@
           });
         });
 
-        el.phoneInp.addEventListener('input', () => {
-          state.userPhone = utils.sanitizePhone(el.phoneInp.value);
-          
-          if (state.userPhone && !utils.validateCubanPhone(state.userPhone)) {
-            el.phoneInp.style.borderColor = 'var(--error)';
-            utils.showNotification('Formato de teléfono incorrecto', 'error', '❌', 3000);
-          } else {
-            el.phoneInp.style.borderColor = 'var(--border)';
-          }
-          
-          updateUI();
-        });
-
         el.btn.addEventListener('click', () => {
-          if (!state.amount || !state.provider || !state.userPhone) return;
+          if (!state.amount || !state.provider) return;
           
-          if (!utils.validateCubanPhone(state.userPhone)) {
-            utils.showNotification('Por favor, ingresa un número de teléfono válido', 'error', '❌');
-            el.phoneInp.focus();
-            return;
-          }
-          
-          const msg = `Hola, lo contacte atravez de la plataforma Sojolo Cell, necesito una transferencia de saldo, mi número es: ${state.userPhone} por un monto de ${state.amount}. ¡dígame cómo sería el pago!`;
           const providerNumber = state.provider.replace(/\D/g, '');
-          const url = `https://wa.me/${providerNumber}?text=${encodeURIComponent(msg)}`;
+          
+          const message = `¡Hola! Me comunico a través de la plataforma Sojolo Cell.
+
+INFORMACIÓN DEL CLIENTE:
+• Nombre: ${state.clientName}
+• Teléfono: ${state.clientPhone}
+
+SOLICITUD DE TRANSFERENCIA:
+• Monto solicitado: ${state.amount}
+• Proveedor seleccionado: Proveedor ${state.provider.split(' ')[2]}
+
+Por favor, indíqueme:
+1. La tasa de cambio aplicable
+2. El monto total a pagar en CUP
+3. Métodos de pago disponibles
+4. Tiempo estimado para la transferencia
+
+Quedo atento a su respuesta. ¡Gracias!`;
+          
+          const url = `https://wa.me/${providerNumber}?text=${encodeURIComponent(message)}`;
           
           window.open(url, '_blank', 'noopener,noreferrer');
           utils.showNotification('Redirigiendo a WhatsApp...', 'success', '💬');
+          
+          // Registrar la solicitud en el historial
+          const requestHistory = {
+            timestamp: new Date().toISOString(),
+            clientName: state.clientName,
+            clientPhone: state.clientPhone,
+            amount: state.amount,
+            provider: state.provider
+          };
+          
+          try {
+            const history = JSON.parse(localStorage.getItem('sojoloCellHistory') || '[]');
+            history.unshift(requestHistory);
+            // Mantener solo las últimas 10 solicitudes
+            if (history.length > 10) history.pop();
+            localStorage.setItem('sojoloCellHistory', JSON.stringify(history));
+          } catch (e) {
+            console.warn('No se pudo guardar el historial:', e);
+          }
         });
 
         const openModal = (modal) => {
@@ -1072,10 +1368,32 @@
 
         window.addEventListener('beforeunload', () => {
           utils.stopRecurrentNotifications();
+          utils.stopAutoSave();
+          // Guardar estado final antes de salir
+          utils.autoSaveState();
+        });
+
+        // Guardar estado cuando cambia la visibilidad de la página
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            utils.autoSaveState();
+          }
         });
 
         updateUI();
-        utils.updateStep(1);
+        
+        // Si ya hay datos de cliente, ir al paso correspondiente
+        if (state.clientName && state.clientPhone) {
+          if (state.amount && state.provider) {
+            utils.updateStep(4);
+          } else if (state.amount) {
+            utils.updateStep(3);
+          } else {
+            utils.updateStep(2);
+          }
+        } else {
+          utils.updateStep(1);
+        }
       };
 
       if (document.readyState === 'loading') {
