@@ -6,7 +6,7 @@
   <meta name="description" content="Sojolo Cell - Servicio de transferencia de saldo móvil en Cuba. Recarga tu teléfono de forma rápida y segura.">
   <meta name="keywords" content="saldo móvil, Cuba, transferencia, recarga, ETECSA, recargar celular, saldo Cuba">
   <meta name="msvalidate.01" content="27409BC667954ADA2020F71107F19DB2" />
-  <title>Sojolo Cell - Transferencia de Saldo Móvil en Cuba</title>
+  <title>Sojolo Cell - Saldo Móvil en Cuba</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2325D366'/><text x='50%' y='50%' font-size='60' text-anchor='middle' alignment-baseline='middle' fill='white' font-family='Arial, sans-serif'>SC</text></svg>">
   <style>
     :root {
@@ -707,7 +707,6 @@
   </header>
 
   <main>
-    <!-- Sección de Login -->
     <section class="section" id="loginSection">
       <h2 class="section-title">🔐 Iniciar Sesión</h2>
       <div class="login-form">
@@ -727,7 +726,6 @@
             <button type="button" id="refreshCaptcha" style="background: none; border: none; cursor: pointer; font-size: 1.2rem;">🔄</button>
           </div>
           <div class="captcha-controls">
-            <button type="button" id="audioCaptcha">🔊 Audio</button>
             <button type="button" id="newCaptcha">🔄 Nuevo</button>
           </div>
           <input type="text" id="captchaInput" class="captcha-input" placeholder="Ingresa el código" maxlength="6" />
@@ -744,7 +742,6 @@
       <div class="progress-step" data-step="4">Confirmar</div>
     </div>
 
-    <!-- Información del cliente -->
     <div class="client-info" id="clientInfo" style="display: none;">
       <p><strong>Cliente:</strong> <span id="displayClientName"></span></p>
       <p><strong>Teléfono:</strong> <span id="displayClientPhone"></span></p>
@@ -755,15 +752,15 @@
       <div class="options-grid">
         <div class="option" data-amount="120" role="button" tabindex="0">
           <span>120 CUP</span>
-          <span class="option-subtitle">≈ 700 CUP</span>
+          <span class="option-subtitle">≈ 675 CUP</span>
         </div>
         <div class="option" data-amount="240" role="button" tabindex="0">
           <span>240 CUP</span>
-          <span class="option-subtitle">≈ 1300 CUP</span>
+          <span class="option-subtitle">≈ 1350 CUP</span>
         </div>
         <div class="option" data-amount="360" role="button" tabindex="0">
           <span>360 CUP</span>
-          <span class="option-subtitle">≈ 1800 CUP</span>
+          <span class="option-subtitle">≈ 2025 CUP</span>
         </div>
         <div class="option" id="customOption" role="button" tabindex="0">
           <span>Otra cantidad</span>
@@ -771,6 +768,9 @@
       </div>
       <div class="custom-input" id="customInputDiv">
         <input type="number" id="customAmountInput" placeholder="Ej: 100" min="1" inputmode="numeric" />
+        <div id="customAmountResult" style="margin-top: 8px; font-size: 0.9rem; color: var(--primary); font-weight: 600; display: none;">
+          Precio aproximado: <span id="customAmountPrice">0</span> CUP
+        </div>
       </div>
     </section>
 
@@ -834,9 +834,9 @@
         <button class="close-modal" id="closePricesModal">&times;</button>
       </div>
       <ul class="price-list">
-        <li class="price-item">120 CUP <span class="price-value">= 700 CUP</span></li>
-        <li class="price-item">240 CUP <span class="price-value">= 1300 CUP</span></li>
-        <li class="price-item">360 CUP <span class="price-value">= 1800 CUP</span></li>
+        <li class="price-item">120 CUP <span class="price-value">= 675 CUP</span></li>
+        <li class="price-item">240 CUP <span class="price-value">= 1350 CUP</span></li>
+        <li class="price-item">360 CUP <span class="price-value">= 2025 CUP</span></li>
       </ul>
       <p class="modal-info">ℹ️ Precios orientativos del mercado informal. Pueden variar.</p>
     </div>
@@ -890,13 +890,14 @@
         captchaDisplay: document.getElementById('captchaDisplay'),
         captchaText: document.getElementById('captchaText'),
         refreshCaptcha: document.getElementById('refreshCaptcha'),
-        audioCaptcha: document.getElementById('audioCaptcha'),
         newCaptcha: document.getElementById('newCaptcha'),
         captchaInput: document.getElementById('captchaInput'),
         amountOpts: document.querySelectorAll('.option[data-amount]'),
         customOpt: document.getElementById('customOption'),
         customDiv: document.getElementById('customInputDiv'),
         customInp: document.getElementById('customAmountInput'),
+        customAmountResult: document.getElementById('customAmountResult'),
+        customAmountPrice: document.getElementById('customAmountPrice'),
         provSec: document.getElementById('providerSection'),
         provList: document.querySelector('.provider-list'),
         btn: document.getElementById('whatsappBtn'),
@@ -914,6 +915,16 @@
         promotionBanner: document.getElementById('promotionBanner'),
         closePromotion: document.getElementById('closePromotion'),
         amountSection: document.getElementById('amountSection')
+      };
+
+      const calculatePriceWithMarkup = (basePrice) => {
+        return Math.round(basePrice * 1.35);
+      };
+
+      const basePrices = {
+        '120': 500,
+        '240': 1000,
+        '360': 1500
       };
 
       const utils = {
@@ -961,22 +972,27 @@
           return captcha;
         },
         
-        speakCaptcha: () => {
-          if ('speechSynthesis' in window) {
-            const utterance = new SpeechSynthesisUtterance(state.captchaCode);
-            utterance.lang = 'es-ES';
-            utterance.rate = 0.8;
-            speechSynthesis.speak(utterance);
-          } else {
-            utils.showNotification('Tu navegador no soporta síntesis de voz', 'warning', '⚠️');
-          }
-        },
-        
         validateCaptcha: () => {
           return el.captchaInput.value.toUpperCase() === state.captchaCode.toUpperCase();
         },
+
+        calculateCustomPrice: (amount) => {
+          if (!amount || isNaN(amount) || amount <= 0) return 0;
+          
+          let basePrice = 0;
+          if (amount <= 120) {
+            basePrice = 500;
+          } else if (amount <= 240) {
+            basePrice = 1000;
+          } else if (amount <= 360) {
+            basePrice = 1500;
+          } else {
+            basePrice = Math.round((amount / 360) * 1500);
+          }
+          
+          return calculatePriceWithMarkup(basePrice);
+        },
         
-        // Guardado automático usando localStorage
         autoSaveState: () => {
           try {
             const stateToSave = {
@@ -999,14 +1015,12 @@
             if (savedState) {
               const parsed = JSON.parse(savedState);
               
-              // Cargar datos del cliente si existen
               if (parsed.clientName && parsed.clientPhone) {
                 state.clientName = parsed.clientName;
                 state.clientPhone = parsed.clientPhone;
                 el.clientName.value = parsed.clientName;
                 el.clientPhone.value = parsed.clientPhone;
                 
-                // Si ya hay datos de cliente, mostrar secciones principales
                 el.loginSection.style.display = 'none';
                 el.clientInfo.style.display = 'block';
                 el.amountSection.style.display = 'block';
@@ -1015,10 +1029,8 @@
                 el.displayClientPhone.textContent = parsed.clientPhone;
                 utils.updateStep(2);
                 
-                // Cargar selecciones previas si existen
                 if (parsed.amount) {
                   state.amount = parsed.amount;
-                  // Seleccionar la opción correspondiente
                   document.querySelectorAll('.option[data-amount]').forEach(opt => {
                     if (opt.dataset.amount === parsed.amount.split(' ')[0]) {
                       opt.classList.add('selected');
@@ -1086,7 +1098,6 @@
         },
 
         startAutoSave: () => {
-          // Guardar cada 10 segundos
           state.autoSaveInterval = setInterval(() => {
             utils.autoSaveState();
           }, 10000);
@@ -1186,10 +1197,8 @@
       };
 
       const init = async () => {
-        // Cargar estado guardado automáticamente
         utils.loadSavedState();
         
-        // Iniciar captcha
         utils.generateCaptcha();
         
         utils.checkNotificationPermission();
@@ -1207,9 +1216,7 @@
           utils.showNotification('Descargando aplicación...', 'success', '📥');
         });
 
-        // Eventos del captcha
         el.refreshCaptcha.addEventListener('click', () => utils.generateCaptcha());
-        el.audioCaptcha.addEventListener('click', () => utils.speakCaptcha());
         el.newCaptcha.addEventListener('click', () => utils.generateCaptcha());
 
         el.loginBtn.addEventListener('click', handleLogin);
@@ -1271,7 +1278,18 @@
 
         el.customInp.addEventListener('input', () => {
           const val = el.customInp.value.trim();
-          state.amount = val && !isNaN(val) && Number(val) > 0 ? `${val} CUP` : null;
+          const amount = parseInt(val);
+          
+          if (val && !isNaN(amount) && amount > 0) {
+            state.amount = `${amount} CUP`;
+            const calculatedPrice = utils.calculateCustomPrice(amount);
+            el.customAmountPrice.textContent = calculatedPrice;
+            el.customAmountResult.style.display = 'block';
+          } else {
+            state.amount = null;
+            el.customAmountResult.style.display = 'none';
+          }
+          
           el.provSec.style.display = state.amount ? 'block' : 'none';
           utils.updateStep(state.amount ? 3 : 2);
           updateUI();
@@ -1294,6 +1312,16 @@
           
           const providerNumber = state.provider.replace(/\D/g, '');
           
+          let finalPrice = 0;
+          if (state.amount.includes('CUP')) {
+            const amountValue = state.amount.split(' ')[0];
+            if (basePrices[amountValue]) {
+              finalPrice = calculatePriceWithMarkup(basePrices[amountValue]);
+            } else {
+              finalPrice = utils.calculateCustomPrice(parseInt(amountValue));
+            }
+          }
+          
           const message = `¡Hola! Me comunico a través de la plataforma Sojolo Cell.
 
 INFORMACIÓN DEL CLIENTE:
@@ -1302,6 +1330,7 @@ INFORMACIÓN DEL CLIENTE:
 
 SOLICITUD DE TRANSFERENCIA:
 • Monto solicitado: ${state.amount}
+• Precio aproximado: ${finalPrice} CUP
 • Proveedor seleccionado: Proveedor ${state.provider.split(' ')[2]}
 
 Por favor, indíqueme:
@@ -1317,19 +1346,18 @@ Quedo atento a su respuesta. ¡Gracias!`;
           window.open(url, '_blank', 'noopener,noreferrer');
           utils.showNotification('Redirigiendo a WhatsApp...', 'success', '💬');
           
-          // Registrar la solicitud en el historial
           const requestHistory = {
             timestamp: new Date().toISOString(),
             clientName: state.clientName,
             clientPhone: state.clientPhone,
             amount: state.amount,
+            price: finalPrice,
             provider: state.provider
           };
           
           try {
             const history = JSON.parse(localStorage.getItem('sojoloCellHistory') || '[]');
             history.unshift(requestHistory);
-            // Mantener solo las últimas 10 solicitudes
             if (history.length > 10) history.pop();
             localStorage.setItem('sojoloCellHistory', JSON.stringify(history));
           } catch (e) {
@@ -1369,11 +1397,9 @@ Quedo atento a su respuesta. ¡Gracias!`;
         window.addEventListener('beforeunload', () => {
           utils.stopRecurrentNotifications();
           utils.stopAutoSave();
-          // Guardar estado final antes de salir
           utils.autoSaveState();
         });
 
-        // Guardar estado cuando cambia la visibilidad de la página
         document.addEventListener('visibilitychange', () => {
           if (document.hidden) {
             utils.autoSaveState();
@@ -1382,7 +1408,6 @@ Quedo atento a su respuesta. ¡Gracias!`;
 
         updateUI();
         
-        // Si ya hay datos de cliente, ir al paso correspondiente
         if (state.clientName && state.clientPhone) {
           if (state.amount && state.provider) {
             utils.updateStep(4);
