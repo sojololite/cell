@@ -7,68 +7,15 @@
   <meta name="keywords" content="saldo móvil, Cuba, transferencia, recarga, ETECSA, recargar celular, saldo Cuba">
   <meta name="msvalidate.01" content="27409BC667954ADA2020F71107F19DB2" />
   <title>Sojolo Cell - Saldo Móvil en Cuba</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2325D366'/><text x='50%' y='50%' font-size='60' text-anchor='middle' alignment-baseline='middle' fill='white' font-family='Arial, sans-serif'>SC</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2325D366' rx='12'/><text x='50' y='60' font-size='42' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'>SC</text></svg>">
+  <link rel="stylesheet" href="styles.css">
   <style>
-    :root {
-      --primary: #25D366;
-      --primary-dark: #1a9c4d;
-      --primary-light: #e8f7ed;
-      --secondary: #667ee0;
-      --secondary-dark: #5a6fd0;
-      --light: #f8fafc;
-      --white: #ffffff;
-      --text: #2d3748;
-      --text-dark: #1a202c;
-      --muted: #718096;
-      --border: #e2e8f0;
-      --success: #38a169;
-      --success-bg: #f0fff4;
-      --warning: #d69e2e;
-      --warning-bg: #fffaf0;
-      --error: #e53e3e;
-      --error-bg: #fff5f5;
-      --overlay: rgba(0, 0, 0, 0.7);
-      --radius: 12px;
-      --radius-sm: 8px;
-      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
-      color: var(--text);
-      line-height: 1.5;
-      padding: 16px;
-      max-width: 600px;
-      margin: 0 auto;
-      min-height: 100vh;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 16px 0 24px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
+    /* Estilos críticos para mejor rendimiento */
     .logo-icon {
+      background: #25D366;
+      border-radius: 8px;
       width: 40px;
       height: 40px;
-      background: var(--primary);
-      border-radius: var(--radius-sm);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -76,619 +23,43 @@
       font-weight: bold;
       font-size: 1.2rem;
     }
-
-    .logo-text {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--text-dark);
-    }
-
-    .header-btns {
-      display: flex;
-      gap: 8px;
-    }
-
-    .btn-sm, .btn {
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: var(--radius-sm);
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .btn-sm:hover, .btn:hover {
-      background: var(--primary-dark);
-      transform: translateY(-1px);
-    }
-
-    .btn-sm {
-      padding: 8px 14px;
-      font-size: 0.85rem;
-    }
-
-    .btn {
-      width: 100%;
-      padding: 16px;
-      font-size: 1.05rem;
-      margin-top: 10px;
-      box-shadow: var(--shadow);
-    }
-
-    .btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .btn-secondary {
-      background: var(--secondary);
-    }
-
-    .btn-secondary:hover {
-      background: var(--secondary-dark);
-    }
-
-    .progress-indicator {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 24px;
-      position: relative;
-    }
-
-    .progress-indicator::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--border);
-      transform: translateY(-50%);
-      z-index: 0;
-    }
-
-    .progress-step {
-      background: var(--white);
-      padding: 8px 12px;
-      border-radius: var(--radius-sm);
-      font-size: 0.8rem;
-      font-weight: 600;
-      position: relative;
-      z-index: 1;
-      border: 2px solid var(--border);
-      color: var(--muted);
-      transition: all 0.3s ease;
-    }
-
-    .progress-step.active {
-      border-color: var(--primary);
-      color: var(--primary);
-      background: var(--primary-light);
-    }
-
-    .section {
-      background: var(--white);
-      padding: 20px;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      margin-bottom: 20px;
-      transition: all 0.3s ease;
-    }
-
-    .section-title {
-      font-size: 1.2rem;
-      margin-bottom: 16px;
-      font-weight: 600;
-      color: var(--text-dark);
-    }
-
-    .login-form {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .input-group {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .input-label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: var(--text-dark);
-    }
-
-    .login-form input {
-      width: 100%;
-      padding: 12px;
-      border: 2px solid var(--border);
-      border-radius: var(--radius-sm);
-      font-size: 1rem;
-      transition: all 0.2s ease;
-    }
-
-    .login-form input:focus {
-      border-color: var(--primary);
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
-    }
-
-    .input-help {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-top: 6px;
-    }
-
-    .captcha-container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      background: #f8f9fa;
-      padding: 15px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-    }
-
-    .captcha-display {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 10px;
-      background: white;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      font-family: 'Courier New', monospace;
-      font-size: 1.4rem;
-      font-weight: bold;
-      letter-spacing: 3px;
-      color: var(--text-dark);
-      user-select: none;
-    }
-
-    .captcha-controls {
-      display: flex;
-      gap: 10px;
-    }
-
-    .captcha-controls button {
-      flex: 1;
-      padding: 8px;
-      background: var(--secondary);
-      color: white;
-      border: none;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: background 0.2s ease;
-    }
-
-    .captcha-controls button:hover {
-      background: var(--secondary-dark);
-    }
-
-    .captcha-input {
-      width: 100%;
-      padding: 10px;
-      border: 2px solid var(--border);
-      border-radius: var(--radius-sm);
-      font-size: 1rem;
-      text-align: center;
-      letter-spacing: 2px;
-      font-family: 'Courier New', monospace;
-    }
-
-    .captcha-input:focus {
-      border-color: var(--primary);
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
-    }
-
-    .options-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .option {
-      padding: 14px;
-      background: #fafafa;
-      border: 2px solid var(--border);
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      min-height: 70px;
-      transition: all 0.2s ease;
-    }
-
-    .option:hover {
-      border-color: var(--primary);
-      transform: translateY(-2px);
-    }
-
-    .option.selected {
-      background: var(--success-bg);
-      border-color: var(--primary);
-      position: relative;
-    }
-
-    .option.selected::after {
-      content: "✓";
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      color: var(--success);
-      font-weight: bold;
-      font-size: 1rem;
-    }
-
-    .option.disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .option-subtitle {
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
-    .custom-input {
-      margin-top: 12px;
-      display: none;
-    }
-
-    .custom-input input {
-      width: 100%;
-      padding: 12px;
-      border: 2px solid var(--border);
-      border-radius: var(--radius-sm);
-      font-size: 1rem;
-      transition: all 0.2s ease;
-    }
-
-    .custom-input input:focus {
-      border-color: var(--primary);
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
-    }
-
-    .provider-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      max-height: 300px;
-      overflow-y: auto;
-    }
-
-    .provider-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px;
-      border-radius: var(--radius-sm);
-      transition: all 0.2s ease;
-    }
-
-    .provider-item:hover {
-      background: var(--primary-light);
-    }
-
-    .provider-info {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .provider-name {
-      font-weight: 600;
-    }
-
-    .status {
-      font-size: 0.75rem;
-      padding: 3px 8px;
-      border-radius: 12px;
-      font-weight: 600;
-      width: fit-content;
-    }
-
-    .available {
-      background: var(--success-bg);
-      color: var(--success);
-    }
-
-    .unavailable {
-      background: var(--error-bg);
-      color: var(--error);
-    }
-
-    .info,
-    .modal-info {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.5;
-      margin-bottom: 12px;
-    }
-
-    .notification {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      padding: 14px 20px;
-      border-radius: var(--radius);
-      color: white;
-      font-weight: 600;
-      z-index: 1001;
-      box-shadow: var(--shadow-lg);
-      transform: translateX(150%);
-      max-width: 300px;
-      transition: transform 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .notification.show {
-      transform: translateX(0);
-    }
-
-    .notification.success {
-      background: var(--success);
-    }
-
-    .notification.error {
-      background: var(--error);
-    }
-
-    .notification.warning {
-      background: var(--warning);
-    }
-
-    .notification.info {
-      background: var(--secondary);
-    }
-
-    .notification-icon {
-      font-size: 1.2rem;
-    }
-
-    .promotion-banner {
-      background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
-      color: white;
-      padding: 16px;
-      border-radius: var(--radius);
-      margin-top: 20px;
-      display: none;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-      box-shadow: var(--shadow);
-    }
-
-    .promotion-banner.show {
-      display: flex;
-    }
-
+    
     .promotion-logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: #25D366;
+      border-radius: 8px;
       width: 50px;
       height: 50px;
-      background: var(--primary);
-      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: white;
       font-weight: bold;
       font-size: 1.2rem;
       margin-right: 12px;
     }
-
-    .promotion-content h3 {
-      margin-bottom: 6px;
-      font-size: 1.1rem;
-    }
-
-    .promotion-content p {
-      font-size: 0.9rem;
-      opacity: 0.9;
-      margin-bottom: 10px;
-    }
-
-    .promotion-btn {
-      background: white;
-      color: var(--secondary);
-      padding: 8px 16px;
-      border-radius: var(--radius-sm);
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-block;
-      transition: all 0.2s ease;
-    }
-
-    .promotion-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: var(--shadow);
-    }
-
-    .promotion-close {
-      background: transparent;
-      border: none;
-      color: white;
-      font-size: 1.2rem;
-      cursor: pointer;
-      padding: 4px;
-      align-self: flex-start;
-    }
-
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--overlay);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-      padding: 16px;
-      transition: all 0.3s ease;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .modal {
-      background: white;
-      border-radius: var(--radius);
-      width: 100%;
-      max-width: 400px;
-      padding: 24px;
-      box-shadow: var(--shadow-lg);
-      transform: translateY(20px);
-      transition: transform 0.3s ease;
-    }
-
-    .modal-overlay.active .modal {
-      transform: translateY(0);
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .close-modal {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: var(--muted);
-      padding: 4px;
-      transition: color 0.2s ease;
-    }
-
-    .close-modal:hover {
-      color: var(--text);
-    }
-
-    .price-list {
-      list-style: none;
-    }
-
-    .price-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .price-item:last-child {
-      border-bottom: none;
-    }
-
-    .price-value {
-      color: var(--primary);
-      font-weight: 600;
-    }
-
-    .contact-buttons {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-      justify-content: center;
-    }
-
-    .contact-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 16px;
-      background: var(--primary-light);
-      color: var(--primary-dark);
-      border: 1px solid var(--primary);
-      border-radius: var(--radius-sm);
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.2s ease;
-    }
-
-    .contact-btn:hover {
-      background: var(--primary);
-      color: white;
-      transform: translateY(-1px);
-    }
-
-    .client-info {
-      background: var(--primary-light);
-      padding: 12px 16px;
-      border-radius: var(--radius-sm);
-      margin-bottom: 16px;
-      border-left: 4px solid var(--primary);
-    }
-
-    .client-info p {
-      margin: 4px 0;
-      font-size: 0.9rem;
-    }
-
-    .client-info strong {
-      color: var(--primary-dark);
-    }
-
-    @media (max-width: 480px) {
-      body {
-        padding: 12px;
-      }
-      .section {
-        padding: 16px;
-      }
-      .logo-text {
-        font-size: 1.2rem;
-      }
-      .btn-sm {
-        padding: 6px 12px;
-        font-size: 0.8rem;
-      }
-      .options-grid {
-        grid-template-columns: 1fr;
-      }
-      .progress-step {
-        font-size: 0.7rem;
-        padding: 6px 8px;
-      }
-      .promotion-banner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-      .promotion-close {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-      }
-      .contact-buttons {
-        flex-direction: column;
-      }
-      .captcha-controls {
-        flex-direction: column;
-      }
-    }
   </style>
 </head>
 <body>
+  <!-- Sistema de Iconos SVG Unificado -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <defs>
+      <symbol id="icon-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893-.001-3.189-1.248-6.189-3.515-8.452"/></symbol>
+      <symbol id="icon-login" viewBox="0 0 24 24"><path fill="currentColor" d="M12 17a2 2 0 0 0 2-2a2 2 0 0 0-2-2a2 2 0 0 0-2 2a2 2 0 0 0 2 2m6-9a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2h1V6a5 5 0 0 1 5-5a5 5 0 0 1 5 5v2h1m-6-5a3 3 0 0 0-3 3v2h6V6a3 3 0 0 0-3-3z"/></symbol>
+      <symbol id="icon-currency" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2m0 18a8 8 0 1 1 8-8a8 8 0 0 1-8 8m1-13.5V9h3v2h-3v4h2v2h-2a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h1V7h-1a4 4 0 0 0-4 4v4a4 4 0 0 0 4 4h2v-2h-2a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h1z"/></symbol>
+      <symbol id="icon-provider" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4z"/></symbol>
+      <symbol id="icon-confirm" viewBox="0 0 24 24"><path fill="currentColor" d="M21 7L9 19l-5.5-5.5l1.41-1.41L9 16.17L19.59 5.59L21 7z"/></symbol>
+      <symbol id="icon-prices" viewBox="0 0 24 24"><path fill="currentColor" d="M3 6h18V4H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4v-2H3V6zm10 6H9v1.78c-.61.55-1 1.33-1 2.22c0 .89.39 1.67 1 2.22V20h4v-1.78c.61-.55 1-1.34 1-2.22s-.39-1.67-1-2.22V12zm-2 5.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5s1.5.67 1.5 1.5s-.67 1.5-1.5 1.5zM22 8h-6c-.5 0-1 .5-1 1v10c0 .5.5 1 1 1h6c.5 0 1-.5 1-1V9c0-.5-.5-1-1-1zm-1 10h-4v-8h4v8z"/></symbol>
+      <symbol id="icon-privacy" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12c5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></symbol>
+      <symbol id="icon-download" viewBox="0 0 24 24"><path fill="currentColor" d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7l7-7z"/></symbol>
+      <symbol id="icon-close" viewBox="0 0 24 24"><path fill="currentColor" d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41z"/></symbol>
+      <symbol id="icon-refresh" viewBox="0 0 24 24"><path fill="currentColor" d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></symbol>
+      <symbol id="icon-info" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></symbol>
+      <symbol id="icon-email" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></symbol>
+      <symbol id="icon-facebook" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></symbol>
+      <symbol id="icon-business" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></symbol>
+    </defs>
+  </svg>
+
   <div id="notification" class="notification" aria-live="polite">
     <span class="notification-icon"></span>
     <span class="notification-text"></span>
@@ -700,46 +71,72 @@
       <div class="logo-text">Sojolo Cell</div>
     </div>
     <div class="header-btns">
-      <button class="btn-sm" id="openPricesBtn">📊</button>
-      <button class="btn-sm" id="downloadAppBtn">📥</button>
-      <button class="btn-sm" id="openPrivacyBtn">🔒</button>
+      <button class="btn-sm" id="openPricesBtn" aria-label="Ver precios">
+        <svg width="20" height="20"><use href="#icon-prices"></use></svg>
+      </button>
+      <button class="btn-sm" id="downloadAppBtn" aria-label="Descargar aplicación">
+        <svg width="20" height="20"><use href="#icon-download"></use></svg>
+      </button>
+      <button class="btn-sm" id="openPrivacyBtn" aria-label="Política de privacidad">
+        <svg width="20" height="20"><use href="#icon-privacy"></use></svg>
+      </button>
     </div>
   </header>
 
   <main>
     <section class="section" id="loginSection">
-      <h2 class="section-title">🔐 Iniciar Sesión</h2>
-      <div class="login-form">
+      <h2 class="section-title">
+        <svg width="24" height="24"><use href="#icon-login"></use></svg>
+        Iniciar Sesión
+      </h2>
+      <form class="login-form" id="loginForm">
         <div class="input-group">
           <label for="clientName" class="input-label">Nombre completo</label>
-          <input type="text" id="clientName" placeholder="Ej: Juan Pérez García" autocomplete="name" />
+          <input type="text" id="clientName" name="clientName" placeholder="Ej: Juan Pérez García" autocomplete="name" required />
         </div>
         <div class="input-group">
           <label for="clientPhone" class="input-label">Tu número de móvil</label>
-          <input type="tel" id="clientPhone" placeholder="Ej: +53 5XXXXXXX" autocomplete="tel" inputmode="tel" />
+          <input type="tel" id="clientPhone" name="clientPhone" placeholder="Ej: +53 5XXXXXXX" autocomplete="tel" inputmode="tel" required />
           <p id="phoneHelp" class="input-help">Formato: +53 seguido de 8 dígitos</p>
         </div>
         
         <div class="captcha-container">
           <div class="captcha-display" id="captchaDisplay">
-            <span id="captchaText"></span>
-            <button type="button" id="refreshCaptcha" style="background: none; border: none; cursor: pointer; font-size: 1.2rem;">🔄</button>
+            <span id="captchaText" aria-live="polite"></span>
+            <button type="button" id="refreshCaptcha" aria-label="Actualizar código de verificación">
+              <svg width="20" height="20"><use href="#icon-refresh"></use></svg>
+            </button>
           </div>
           <div class="captcha-controls">
-            <button type="button" id="newCaptcha">🔄 Nuevo</button>
+            <button type="button" id="newCaptcha">
+              <svg width="16" height="16"><use href="#icon-refresh"></use></svg>
+              Nuevo código
+            </button>
           </div>
-          <input type="text" id="captchaInput" class="captcha-input" placeholder="Ingresa el código" maxlength="6" />
+          <input type="text" id="captchaInput" class="captcha-input" placeholder="Ingresa el código" maxlength="6" required />
         </div>
         
-        <button class="btn" id="loginBtn">Iniciar Sesión</button>
-      </div>
+        <button type="submit" class="btn" id="loginBtn">Iniciar Sesión</button>
+      </form>
     </section>
 
-    <div class="progress-indicator" id="progressIndicator">
-      <div class="progress-step active" data-step="1">Login</div>
-      <div class="progress-step" data-step="2">Cantidad</div>
-      <div class="progress-step" data-step="3">Proveedor</div>
-      <div class="progress-step" data-step="4">Confirmar</div>
+    <div class="progress-indicator" id="progressIndicator" aria-label="Progreso del proceso">
+      <div class="progress-step active" data-step="1" aria-current="step">
+        <svg width="16" height="16"><use href="#icon-login"></use></svg>
+        Login
+      </div>
+      <div class="progress-step" data-step="2">
+        <svg width="16" height="16"><use href="#icon-currency"></use></svg>
+        Cantidad
+      </div>
+      <div class="progress-step" data-step="3">
+        <svg width="16" height="16"><use href="#icon-provider"></use></svg>
+        Proveedor
+      </div>
+      <div class="progress-step" data-step="4">
+        <svg width="16" height="16"><use href="#icon-confirm"></use></svg>
+        Confirmar
+      </div>
     </div>
 
     <div class="client-info" id="clientInfo" style="display: none;">
@@ -748,55 +145,83 @@
     </div>
 
     <section class="section" id="amountSection" style="display: none;">
-      <h2 class="section-title">🪙 Seleccione la cantidad</h2>
-      <div class="options-grid">
+      <h2 class="section-title">
+        <svg width="24" height="24"><use href="#icon-currency"></use></svg>
+        Seleccione la cantidad
+      </h2>
+      <div class="options-grid" id="amountOptions">
         <div class="option" data-amount="120" role="button" tabindex="0">
-          <span>120 CUP</span>
-          <span class="option-subtitle">≈ 675 CUP</span>
+          <div class="option-header">
+            <span>120 CUP</span>
+          </div>
+          <span class="option-subtitle">≈ 500 CUP</span>
         </div>
         <div class="option" data-amount="240" role="button" tabindex="0">
-          <span>240 CUP</span>
-          <span class="option-subtitle">≈ 1350 CUP</span>
+          <div class="option-header">
+            <span>240 CUP</span>
+          </div>
+          <span class="option-subtitle">≈ 1000 CUP</span>
         </div>
         <div class="option" data-amount="360" role="button" tabindex="0">
-          <span>360 CUP</span>
-          <span class="option-subtitle">≈ 2025 CUP</span>
+          <div class="option-header">
+            <span>360 CUP</span>
+          </div>
+          <span class="option-subtitle">≈ 1500 CUP</span>
+        </div>
+        <div class="option" data-amount="500" role="button" tabindex="0">
+          <div class="option-header">
+            <span>500 CUP</span>
+          </div>
+          <span class="option-subtitle">≈ 2000 CUP</span>
+        </div>
+        <div class="option" data-amount="1000" role="button" tabindex="0">
+          <div class="option-header">
+            <span>1000 CUP</span>
+            <span class="best-deal-badge">💎 MEJOR</span>
+          </div>
+          <span class="option-subtitle">≈ 3800 CUP</span>
         </div>
         <div class="option" id="customOption" role="button" tabindex="0">
           <span>Otra cantidad</span>
         </div>
       </div>
-      <div class="custom-input" id="customInputDiv">
+      <div class="custom-input" id="customInputDiv" style="display: none;">
         <input type="number" id="customAmountInput" placeholder="Ej: 100" min="1" inputmode="numeric" />
-        <div id="customAmountResult" style="margin-top: 8px; font-size: 0.9rem; color: var(--primary); font-weight: 600; display: none;">
+        <div id="customAmountResult" class="custom-amount-result">
           Precio aproximado: <span id="customAmountPrice">0</span> CUP
         </div>
       </div>
     </section>
 
     <section class="section" id="providerSection" style="display: none;">
-      <h2 class="section-title">👤 Seleccione el proveedor</h2>
-      <p class="info">ℹ️ El proveedor puede cambiar sin previo aviso.</p>
-      <div class="provider-list">
-        <div class="option provider-item" data-provider="+53 5 6584673" data-available="true" role="button" tabindex="0">
+      <h2 class="section-title">
+        <svg width="24" height="24"><use href="#icon-provider"></use></svg>
+        Seleccione el proveedor
+      </h2>
+      <p class="info">
+        <svg width="16" height="16"><use href="#icon-info"></use></svg>
+        ℹ️ El proveedor puede cambiar sin previo aviso.
+      </p>
+      <div class="provider-list" id="providerList">
+        <div class="option provider-item" data-provider="+5356584673" data-available="true" role="button" tabindex="0" aria-label="Proveedor 1 - Disponible">
           <div class="provider-info">
             <span class="provider-name">Proveedor 1</span>
             <span class="status available">Disponible</span>
           </div>
         </div>
-        <div class="option provider-item" data-provider="+53 5 0728907" data-available="true" role="button" tabindex="0">
+        <div class="option provider-item" data-provider="+5350728907" data-available="true" role="button" tabindex="0" aria-label="Proveedor 2 - Disponible">
           <div class="provider-info">
             <span class="provider-name">Proveedor 2</span>
             <span class="status available">Disponible</span>
           </div>
         </div>
-        <div class="option provider-item" data-provider="+53 5 5384257" data-available="true" role="button" tabindex="0">
+        <div class="option provider-item" data-provider="+5355384257" data-available="true" role="button" tabindex="0" aria-label="Proveedor 3 - Disponible">
           <div class="provider-info">
             <span class="provider-name">Proveedor 3</span>
             <span class="status available">Disponible</span>
           </div>
         </div>
-        <div class="option provider-item" data-provider="+53 63175552" data-available="true" role="button" tabindex="0">
+        <div class="option provider-item" data-provider="+5363175552" data-available="true" role="button" tabindex="0" aria-label="Proveedor 4 - Disponible">
           <div class="provider-info">
             <span class="provider-name">Proveedor 4</span>
             <span class="status available">Disponible</span>
@@ -805,50 +230,146 @@
       </div>
     </section>
 
-    <button class="btn" id="whatsappBtn" style="display: none;">💬 Solicitar Transferencia</button>
+    <button class="btn" id="whatsappBtn" style="display: none;">
+      <svg width="20" height="20"><use href="#icon-whatsapp"></use></svg>
+      Solicitar Transferencia
+    </button>
 
     <div class="promotion-banner" id="promotionBanner">
       <div class="promotion-logo">SC</div>
       <div class="promotion-content">
         <h3>¿Necesitas más servicios?</h3>
         <p>Visita nuestra plataforma de negocios para más opciones</p>
-        <a href="https://sojololite.github.io/business/" class="promotion-btn" target="_blank" rel="noopener">Ver servicios</a>
+        <a href="https://sojololite.github.io/business/" class="promotion-btn" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16"><use href="#icon-business"></use></svg>
+          Ver servicios
+        </a>
       </div>
-      <button class="promotion-close" id="closePromotion">&times;</button>
+      <button class="promotion-close" id="closePromotion" aria-label="Cerrar promoción">
+        <svg width="16" height="16"><use href="#icon-close"></use></svg>
+      </button>
     </div>
 
     <div class="contact-buttons">
       <a href="mailto:sojololite@gmail.com?subject=Consulta%20Sojolo%20Cell" class="contact-btn">
-        <span>✉️</span> Gmail
+        <svg width="20" height="20"><use href="#icon-email"></use></svg>
+        Gmail
       </a>
-      <a href="https://www.facebook.com/profile.php?id=61583488733031" target="_blank" rel="noopener" class="contact-btn">
-        <span>📘</span> Facebook
+      <a href="https://www.facebook.com/profile.php?id=61583488733031" target="_blank" rel="noopener noreferrer" class="contact-btn">
+        <svg width="20" height="20"><use href="#icon-facebook"></use></svg>
+        Facebook
       </a>
     </div>
   </main>
 
-  <div class="modal-overlay" id="pricesModal" role="dialog" aria-modal="true">
+  <div class="modal-overlay" id="pricesModal" role="dialog" aria-modal="true" aria-labelledby="pricesModalTitle">
     <div class="modal">
       <div class="modal-header">
-        <h3>📊 Mercado Informal</h3>
-        <button class="close-modal" id="closePricesModal">&times;</button>
+        <h3 id="pricesModalTitle">
+          <svg width="24" height="24"><use href="#icon-prices"></use></svg>
+          Mercado Informal
+        </h3>
+        <button class="close-modal" id="closePricesModal" aria-label="Cerrar modal">
+          <svg width="20" height="20"><use href="#icon-close"></use></svg>
+        </button>
       </div>
-      <ul class="price-list">
-        <li class="price-item">120 CUP <span class="price-value">= 675 CUP</span></li>
-        <li class="price-item">240 CUP <span class="price-value">= 1350 CUP</span></li>
-        <li class="price-item">360 CUP <span class="price-value">= 2025 CUP</span></li>
+      <ul class="price-list" id="priceList">
+        <li class="price-item">
+          <div class="price-header">
+            <span>120 CUP</span>
+          </div>
+          <div class="price-details">
+            <span class="price-value">= 500 CUP</span>
+            <span class="price-trend">➡️</span>
+          </div>
+          <div class="price-confidence">
+            <div class="confidence-bar">
+              <div class="confidence-fill" style="width: 90%"></div>
+            </div>
+            <span class="confidence-text">90% confianza</span>
+          </div>
+        </li>
+        <li class="price-item">
+          <div class="price-header">
+            <span>240 CUP</span>
+          </div>
+          <div class="price-details">
+            <span class="price-value">= 1000 CUP</span>
+            <span class="price-trend">➡️</span>
+          </div>
+          <div class="price-confidence">
+            <div class="confidence-bar">
+              <div class="confidence-fill" style="width: 92%"></div>
+            </div>
+            <span class="confidence-text">92% confianza</span>
+          </div>
+        </li>
+        <li class="price-item">
+          <div class="price-header">
+            <span>360 CUP</span>
+          </div>
+          <div class="price-details">
+            <span class="price-value">= 1500 CUP</span>
+            <span class="price-trend">➡️</span>
+          </div>
+          <div class="price-confidence">
+            <div class="confidence-bar">
+              <div class="confidence-fill" style="width: 88%"></div>
+            </div>
+            <span class="confidence-text">88% confianza</span>
+          </div>
+        </li>
+        <li class="price-item">
+          <div class="price-header">
+            <span>500 CUP</span>
+          </div>
+          <div class="price-details">
+            <span class="price-value">= 2000 CUP</span>
+            <span class="price-trend">➡️</span>
+          </div>
+          <div class="price-confidence">
+            <div class="confidence-bar">
+              <div class="confidence-fill" style="width: 85%"></div>
+            </div>
+            <span class="confidence-text">85% confianza</span>
+          </div>
+        </li>
+        <li class="price-item">
+          <div class="price-header">
+            <span>1000 CUP</span>
+            <span class="best-deal-badge">💎 MEJOR</span>
+          </div>
+          <div class="price-details">
+            <span class="price-value">= 3800 CUP</span>
+            <span class="price-trend">➡️</span>
+          </div>
+          <div class="price-confidence">
+            <div class="confidence-bar">
+              <div class="confidence-fill" style="width: 95%"></div>
+            </div>
+            <span class="confidence-text">95% confianza</span>
+          </div>
+        </li>
       </ul>
-      <p class="modal-info">ℹ️ Precios orientativos del mercado informal. Pueden variar.</p>
+      <p class="modal-info">
+        <svg width="16" height="16"><use href="#icon-info"></use></svg>
+        ℹ️ Precios orientativos del mercado informal. Pueden variar.
+      </p>
     </div>
   </div>
 
-  <div class="modal-overlay" id="privacyModal" role="dialog" aria-modal="true">
+  <div class="modal-overlay" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyModalTitle">
     <div class="modal">
       <div class="modal-header">
-        <h3>🔒 Política de Privacidad</h3>
-        <button class="close-modal" id="closePrivacyModal">&times;</button>
+        <h3 id="privacyModalTitle">
+          <svg width="24" height="24"><use href="#icon-privacy"></use></svg>
+          Política de Privacidad
+        </h3>
+        <button class="close-modal" id="closePrivacyModal" aria-label="Cerrar modal">
+          <svg width="20" height="20"><use href="#icon-close"></use></svg>
+        </button>
       </div>
-      <div class="modal-info">
+      <div class="modal-info" id="privacyContent">
         <p>Sojolo Cell es una plataforma de contacto entre usuarios y proveedores de saldo móvil.</p>
         <p><strong>No almacenamos</strong> información personal de nadie.</p>
         <p><strong>No participamos</strong> en las transacciones ni nos hacemos responsables de los acuerdos entre usuarios y proveedores.</p>
@@ -858,571 +379,571 @@
   </div>
 
   <script>
-    (function () {
-      'use strict';
+    // Sistema de verificación CAPTCHA
+    class VerificationSystem {
+      constructor() {
+        this.charset = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+        this.length = 6;
+        this.currentCode = '';
+        this.attempts = 0;
+        this.maxAttempts = 5;
+        this.timeoutDuration = 30000;
+      }
 
-      const state = {
-        clientName: '',
-        clientPhone: '',
-        amount: null,
-        provider: null,
-        step: 1,
-        captchaCode: '',
-        promotionShown: localStorage.getItem('promotionShown') !== 'true',
-        notifications: [
-          { message: "¡Bienvenido a Sojolo Cell!", type: "info", icon: "👋" },
-          { message: "Recuerda verificar los precios antes de realizar tu pedido", type: "info", icon: "💡" },
-          { message: "Asegúrate de que tu número de teléfono sea correcto", type: "info", icon: "📱" },
-          { message: "Los proveedores pueden cambiar sin previo aviso", type: "info", icon: "⚠️" }
-        ],
-        notificationInterval: null,
-        autoSaveInterval: null
-      };
+      generate() {
+        let captcha = '';
+        for (let i = 0; i < this.length; i++) {
+          captcha += this.charset.charAt(Math.floor(Math.random() * this.charset.length));
+        }
+        this.currentCode = captcha;
+        this.attempts = 0;
+        return captcha;
+      }
 
-      const el = {
-        loginSection: document.getElementById('loginSection'),
-        clientName: document.getElementById('clientName'),
-        clientPhone: document.getElementById('clientPhone'),
-        loginBtn: document.getElementById('loginBtn'),
-        clientInfo: document.getElementById('clientInfo'),
-        displayClientName: document.getElementById('displayClientName'),
-        displayClientPhone: document.getElementById('displayClientPhone'),
-        captchaDisplay: document.getElementById('captchaDisplay'),
-        captchaText: document.getElementById('captchaText'),
-        refreshCaptcha: document.getElementById('refreshCaptcha'),
-        newCaptcha: document.getElementById('newCaptcha'),
-        captchaInput: document.getElementById('captchaInput'),
-        amountOpts: document.querySelectorAll('.option[data-amount]'),
-        customOpt: document.getElementById('customOption'),
-        customDiv: document.getElementById('customInputDiv'),
-        customInp: document.getElementById('customAmountInput'),
-        customAmountResult: document.getElementById('customAmountResult'),
-        customAmountPrice: document.getElementById('customAmountPrice'),
-        provSec: document.getElementById('providerSection'),
-        provList: document.querySelector('.provider-list'),
-        btn: document.getElementById('whatsappBtn'),
-        openPrices: document.getElementById('openPricesBtn'),
-        downloadApp: document.getElementById('downloadAppBtn'),
-        openPrivacy: document.getElementById('openPrivacyBtn'),
-        pricesModal: document.getElementById('pricesModal'),
-        privacyModal: document.getElementById('privacyModal'),
-        closePrices: document.getElementById('closePricesModal'),
-        closePrivacy: document.getElementById('closePrivacyModal'),
-        progressSteps: document.querySelectorAll('.progress-step'),
-        notification: document.getElementById('notification'),
-        notificationIcon: document.querySelector('.notification-icon'),
-        notificationText: document.querySelector('.notification-text'),
-        promotionBanner: document.getElementById('promotionBanner'),
-        closePromotion: document.getElementById('closePromotion'),
-        amountSection: document.getElementById('amountSection')
-      };
+      validate(input) {
+        if (this.attempts >= this.maxAttempts) {
+          throw new Error('Demasiados intentos fallidos. Por favor, espera 30 segundos.');
+        }
 
-      const calculatePriceWithMarkup = (basePrice) => {
-        return Math.round(basePrice * 1.35);
-      };
-
-      const basePrices = {
-        '120': 500,
-        '240': 1000,
-        '360': 1500
-      };
-
-      const utils = {
-        sanitizePhone: (str) => str.replace(/[^\d+]/g, ''),
+        const isValid = input.toUpperCase() === this.currentCode.toUpperCase();
         
-        validateCubanPhone: (phone) => {
-          const cleanPhone = phone.replace(/\D/g, '');
-          return /^(53)?5\d{7}$/.test(cleanPhone);
-        },
-        
-        validateName: (name) => {
-          return name.trim().length >= 3 && /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(name);
-        },
-        
-        showNotification: (message, type = 'success', icon = '✓', duration = 4000) => {
-          el.notificationIcon.textContent = icon;
-          el.notificationText.textContent = message;
-          el.notification.className = `notification ${type} show`;
+        if (!isValid) {
+          this.attempts++;
+          const remainingAttempts = this.maxAttempts - this.attempts;
           
-          setTimeout(() => {
-            el.notification.classList.remove('show');
-          }, duration);
-        },
-        
-        updateStep: (step) => {
-          state.step = step;
-          el.progressSteps.forEach((stepEl, index) => {
-            if (index + 1 <= step) {
-              stepEl.classList.add('active');
-            } else {
-              stepEl.classList.remove('active');
-            }
-          });
-        },
-        
-        generateCaptcha: () => {
-          const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
-          let captcha = '';
-          for (let i = 0; i < 6; i++) {
-            captcha += chars.charAt(Math.floor(Math.random() * chars.length));
-          }
-          state.captchaCode = captcha;
-          el.captchaText.textContent = captcha;
-          el.captchaInput.value = '';
-          return captcha;
-        },
-        
-        validateCaptcha: () => {
-          return el.captchaInput.value.toUpperCase() === state.captchaCode.toUpperCase();
-        },
-
-        calculateCustomPrice: (amount) => {
-          if (!amount || isNaN(amount) || amount <= 0) return 0;
-          
-          let basePrice = 0;
-          if (amount <= 120) {
-            basePrice = 500;
-          } else if (amount <= 240) {
-            basePrice = 1000;
-          } else if (amount <= 360) {
-            basePrice = 1500;
+          if (remainingAttempts > 0) {
+            throw new Error(`Código incorrecto. Te quedan ${remainingAttempts} intentos.`);
           } else {
-            basePrice = Math.round((amount / 360) * 1500);
-          }
-          
-          return calculatePriceWithMarkup(basePrice);
-        },
-        
-        autoSaveState: () => {
-          try {
-            const stateToSave = {
-              clientName: state.clientName,
-              clientPhone: state.clientPhone,
-              amount: state.amount,
-              provider: state.provider,
-              step: state.step,
-              lastSaved: new Date().toISOString()
-            };
-            localStorage.setItem('sojoloCellState', JSON.stringify(stateToSave));
-          } catch (e) {
-            console.warn('No se pudo guardar el estado automáticamente:', e);
-          }
-        },
-        
-        loadSavedState: () => {
-          try {
-            const savedState = localStorage.getItem('sojoloCellState');
-            if (savedState) {
-              const parsed = JSON.parse(savedState);
-              
-              if (parsed.clientName && parsed.clientPhone) {
-                state.clientName = parsed.clientName;
-                state.clientPhone = parsed.clientPhone;
-                el.clientName.value = parsed.clientName;
-                el.clientPhone.value = parsed.clientPhone;
-                
-                el.loginSection.style.display = 'none';
-                el.clientInfo.style.display = 'block';
-                el.amountSection.style.display = 'block';
-                el.btn.style.display = 'block';
-                el.displayClientName.textContent = parsed.clientName;
-                el.displayClientPhone.textContent = parsed.clientPhone;
-                utils.updateStep(2);
-                
-                if (parsed.amount) {
-                  state.amount = parsed.amount;
-                  document.querySelectorAll('.option[data-amount]').forEach(opt => {
-                    if (opt.dataset.amount === parsed.amount.split(' ')[0]) {
-                      opt.classList.add('selected');
-                    }
-                  });
-                }
-                
-                if (parsed.provider) {
-                  state.provider = parsed.provider;
-                  document.querySelectorAll('.provider-item').forEach(provider => {
-                    if (provider.dataset.provider === parsed.provider) {
-                      provider.classList.add('selected');
-                      el.provSec.style.display = 'block';
-                    }
-                  });
-                }
-                
-                utils.showNotification('Datos cargados automáticamente', 'info', '🔄', 3000);
-              }
-            }
-          } catch (e) {
-            console.warn('No se pudo cargar el estado guardado:', e);
-          }
-        },
-        
-        clearSavedState: () => {
-          localStorage.removeItem('sojoloCellState');
-        },
-
-        showPromotion: () => {
-          if (state.promotionShown) {
-            el.promotionBanner.classList.add('show');
-          }
-        },
-
-        hidePromotion: () => {
-          el.promotionBanner.classList.remove('show');
-          localStorage.setItem('promotionShown', 'true');
-          state.promotionShown = false;
-        },
-
-        startRecurrentNotifications: () => {
-          let notificationIndex = 0;
-          
-          setTimeout(() => {
-            const notification = state.notifications[0];
-            utils.showNotification(notification.message, notification.type, notification.icon, 5000);
-            notificationIndex = 1;
-          }, 5000);
-          
-          state.notificationInterval = setInterval(() => {
-            if (notificationIndex < state.notifications.length) {
-              const notification = state.notifications[notificationIndex];
-              utils.showNotification(notification.message, notification.type, notification.icon, 5000);
-              notificationIndex = (notificationIndex + 1) % state.notifications.length;
-            }
-          }, 30000);
-        },
-
-        stopRecurrentNotifications: () => {
-          if (state.notificationInterval) {
-            clearInterval(state.notificationInterval);
-            state.notificationInterval = null;
-          }
-        },
-
-        startAutoSave: () => {
-          state.autoSaveInterval = setInterval(() => {
-            utils.autoSaveState();
-          }, 10000);
-        },
-
-        stopAutoSave: () => {
-          if (state.autoSaveInterval) {
-            clearInterval(state.autoSaveInterval);
-            state.autoSaveInterval = null;
-          }
-        },
-
-        checkNotificationPermission: () => {
-          if ('Notification' in window) {
-            if (Notification.permission === 'default') {
-              Notification.requestPermission();
-            }
-          }
-        },
-
-        showSystemNotification: (title, body) => {
-          if ('Notification' in window && Notification.permission === 'granted') {
-            new Notification(title, { body, icon: '/favicon.ico' });
+            setTimeout(() => {
+              this.attempts = 0;
+            }, this.timeoutDuration);
+            throw new Error('Demasiados intentos fallidos. Por favor, espera 30 segundos.');
           }
         }
-      };
 
-      const handleLogin = () => {
-        const name = el.clientName.value.trim();
-        const phone = utils.sanitizePhone(el.clientPhone.value);
-        
-        if (!utils.validateName(name)) {
-          utils.showNotification('Por favor, ingresa un nombre válido (mínimo 3 caracteres, solo letras)', 'error', '❌');
-          el.clientName.focus();
-          return;
-        }
-        
-        if (!utils.validateCubanPhone(phone)) {
-          utils.showNotification('Formato de teléfono incorrecto. Ej: +53 51234567', 'error', '❌', 3000);
-          el.clientPhone.focus();
-          return;
-        }
-        
-        if (!utils.validateCaptcha()) {
-          utils.showNotification('El código de verificación es incorrecto', 'error', '❌');
-          el.captchaInput.focus();
-          utils.generateCaptcha();
-          return;
-        }
-        
-        state.clientName = name;
-        state.clientPhone = phone;
-        
-        el.loginSection.style.display = 'none';
-        el.clientInfo.style.display = 'block';
-        el.amountSection.style.display = 'block';
-        el.btn.style.display = 'block';
-        el.displayClientName.textContent = name;
-        el.displayClientPhone.textContent = phone;
-        
-        utils.updateStep(2);
-        utils.showNotification('¡Login exitoso! Tus datos se guardarán automáticamente', 'success', '✅');
-        utils.autoSaveState();
-      };
+        this.attempts = 0;
+        return true;
+      }
 
-      const selectProvider = (providerElement) => {
-        if (providerElement.dataset.available !== 'true') return;
-        
-        document.querySelectorAll('.provider-item').forEach(item => {
-          item.classList.remove('selected');
-        });
-        
-        providerElement.classList.add('selected');
-        
-        state.provider = providerElement.dataset.provider;
-        utils.updateStep(4);
-        updateUI();
-        utils.showNotification('Proveedor seleccionado', 'success', '✅');
-        utils.autoSaveState();
-      };
+      refresh() {
+        return this.generate();
+      }
+    }
 
-      const updateUI = () => {
-        el.btn.disabled = !(state.amount && state.provider);
-        
-        if (state.amount && !state.provider) {
-          utils.updateStep(2);
-          el.provSec.style.display = 'block';
-        } else if (state.amount && state.provider) {
-          utils.updateStep(4);
-        }
-        
-        utils.autoSaveState();
+    // Configuración global
+    const CONFIG = {
+      PRICING: {
+        basePrices: {
+          '120': 500,
+          '240': 1000,
+          '360': 1500,
+          '500': 2000,
+          '1000': 3800
+        },
+        markupPercentage: 35
+      },
+      VALIDATION: {
+        cubanPhoneRegex: /^(53)?5\d{7}$/,
+        nameRegex: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{3,}$/,
+        minNameLength: 3
+      },
+      STORAGE_KEYS: {
+        STATE: 'sojoloCellState',
+        HISTORY: 'sojoloCellHistory',
+        PROMOTION: 'promotionShown'
+      }
+    };
 
-        if (state.amount && state.provider) {
-          setTimeout(utils.showPromotion, 2000);
-        }
-      };
+    // Utilidades
+    class Utils {
+      static showNotification(message, type = 'success', icon = '✓', duration = 4000) {
+        const notification = document.getElementById('notification');
+        const notificationIcon = document.querySelector('.notification-icon');
+        const notificationText = document.querySelector('.notification-text');
 
-      const init = async () => {
-        utils.loadSavedState();
-        
-        utils.generateCaptcha();
-        
-        utils.checkNotificationPermission();
-        utils.startRecurrentNotifications();
-        utils.startAutoSave();
-        
+        if (!notification || !notificationIcon || !notificationText) return;
+
+        notificationIcon.textContent = icon;
+        notificationText.textContent = message;
+        notification.className = `notification ${type} show`;
+
         setTimeout(() => {
-          if (Math.random() < 0.8 && state.clientName) {
-            utils.showPromotion();
-          }
-        }, 8000);
-        
-        el.downloadApp.addEventListener('click', () => {
-          window.open('https://github.com/sojololite/cell/raw/refs/heads/main/Sojolo%20Cell.apk', '_blank');
-          utils.showNotification('Descargando aplicación...', 'success', '📥');
-        });
+          notification.classList.remove('show');
+        }, duration);
+      }
 
-        el.refreshCaptcha.addEventListener('click', () => utils.generateCaptcha());
-        el.newCaptcha.addEventListener('click', () => utils.generateCaptcha());
+      static sanitizePhone(str) {
+        return str.replace(/[^\d+]/g, '');
+      }
 
-        el.loginBtn.addEventListener('click', handleLogin);
+      static validateCubanPhone(phone) {
+        const cleanPhone = phone.replace(/\D/g, '');
+        return CONFIG.VALIDATION.cubanPhoneRegex.test(cleanPhone);
+      }
 
-        el.clientName.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') {
-            handleLogin();
-          }
-        });
+      static validateName(name) {
+        return name.trim().length >= CONFIG.VALIDATION.minNameLength && 
+               CONFIG.VALIDATION.nameRegex.test(name.trim());
+      }
 
-        el.clientPhone.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') {
-            handleLogin();
-          }
-        });
+      static calculateCustomPrice(amount) {
+        if (!amount || isNaN(amount) || amount <= 0) return 0;
 
-        el.captchaInput.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') {
-            handleLogin();
-          }
-        });
+        let basePrice = 0;
+        if (amount <= 120) {
+          basePrice = CONFIG.PRICING.basePrices['120'];
+        } else if (amount <= 240) {
+          basePrice = CONFIG.PRICING.basePrices['240'];
+        } else if (amount <= 360) {
+          basePrice = CONFIG.PRICING.basePrices['360'];
+        } else if (amount <= 500) {
+          basePrice = CONFIG.PRICING.basePrices['500'];
+        } else if (amount <= 1000) {
+          basePrice = CONFIG.PRICING.basePrices['1000'];
+        } else {
+          basePrice = Math.round((amount / 1000) * CONFIG.PRICING.basePrices['1000']);
+        }
 
-        el.amountOpts.forEach((opt) => {
-          opt.addEventListener('click', () => {
-            el.amountOpts.forEach((o) => o.classList.remove('selected'));
-            opt.classList.add('selected');
-            state.amount = `${opt.dataset.amount} CUP`;
-            el.provSec.style.display = 'block';
-            utils.updateStep(3);
-            updateUI();
-            utils.showNotification(`Cantidad seleccionada: ${state.amount}`, 'success', '✅');
-            utils.autoSaveState();
-          });
-          
-          opt.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              opt.click();
-            }
-          });
-        });
+        return Math.round(basePrice * (1 + CONFIG.PRICING.markupPercentage / 100));
+      }
 
-        el.customOpt.addEventListener('click', () => {
-          const isActive = el.customDiv.style.display === 'block';
-          el.amountOpts.forEach((o) => o.classList.remove('selected'));
-          el.customOpt.classList.toggle('selected', !isActive);
-          el.customDiv.style.display = isActive ? 'none' : 'block';
-          if (!isActive) el.customInp.focus();
-          state.amount = isActive ? null : '';
-          el.provSec.style.display = isActive ? 'none' : 'none';
-          utils.updateStep(isActive ? 2 : 3);
-          updateUI();
-          utils.autoSaveState();
-          
-          if (!isActive) {
-            utils.showNotification('Ingresa la cantidad deseada', 'info', '💡');
-          }
-        });
+      static generateCaptcha() {
+        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+        let captcha = '';
+        for (let i = 0; i < 6; i++) {
+          captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return captcha;
+      }
+    }
 
-        el.customInp.addEventListener('input', () => {
-          const val = el.customInp.value.trim();
-          const amount = parseInt(val);
-          
-          if (val && !isNaN(amount) && amount > 0) {
-            state.amount = `${amount} CUP`;
-            const calculatedPrice = utils.calculateCustomPrice(amount);
-            el.customAmountPrice.textContent = calculatedPrice;
-            el.customAmountResult.style.display = 'block';
-          } else {
-            state.amount = null;
-            el.customAmountResult.style.display = 'none';
-          }
-          
-          el.provSec.style.display = state.amount ? 'block' : 'none';
-          utils.updateStep(state.amount ? 3 : 2);
-          updateUI();
-          utils.autoSaveState();
-        });
-
-        document.querySelectorAll('.provider-item').forEach(provider => {
-          provider.addEventListener('click', () => selectProvider(provider));
-          
-          provider.addEventListener('keydown', (e) => {
-            if ((e.key === 'Enter' || e.key === ' ') && provider.dataset.available === 'true') {
-              e.preventDefault();
-              selectProvider(provider);
-            }
-          });
-        });
-
-        el.btn.addEventListener('click', () => {
-          if (!state.amount || !state.provider) return;
-          
-          const providerNumber = state.provider.replace(/\D/g, '');
-          
-          let finalPrice = 0;
-          if (state.amount.includes('CUP')) {
-            const amountValue = state.amount.split(' ')[0];
-            if (basePrices[amountValue]) {
-              finalPrice = calculatePriceWithMarkup(basePrices[amountValue]);
-            } else {
-              finalPrice = utils.calculateCustomPrice(parseInt(amountValue));
-            }
-          }
-          
-          const message = `¡Hola! Me comunico a través de la plataforma Sojolo Cell.
-
-INFORMACIÓN DEL CLIENTE:
-• Nombre: ${state.clientName}
-• Teléfono: ${state.clientPhone}
-
-SOLICITUD DE TRANSFERENCIA:
-• Monto solicitado: ${state.amount}
-• Precio aproximado: ${finalPrice} CUP
-• Proveedor seleccionado: Proveedor ${state.provider.split(' ')[2]}
-
-Por favor, indíqueme:
-
-Quedo atento a su respuesta. ¡Gracias!`;
-          
-          const url = `https://wa.me/${providerNumber}?text=${encodeURIComponent(message)}`;
-          
-          window.open(url, '_blank', 'noopener,noreferrer');
-          utils.showNotification('Redirigiendo a WhatsApp...', 'success', '💬');
-          
-          const requestHistory = {
-            timestamp: new Date().toISOString(),
+    // Gestor de estado
+    class StateManager {
+      static saveState(state) {
+        try {
+          const stateToSave = {
             clientName: state.clientName,
             clientPhone: state.clientPhone,
             amount: state.amount,
-            price: finalPrice,
-            provider: state.provider
+            provider: state.provider,
+            step: state.step,
+            lastSaved: new Date().toISOString()
           };
+          localStorage.setItem(CONFIG.STORAGE_KEYS.STATE, JSON.stringify(stateToSave));
+          return true;
+        } catch (e) {
+          console.warn('No se pudo guardar el estado:', e);
+          return false;
+        }
+      }
+
+      static loadState() {
+        try {
+          const savedState = localStorage.getItem(CONFIG.STORAGE_KEYS.STATE);
+          return savedState ? JSON.parse(savedState) : null;
+        } catch (e) {
+          console.warn('No se pudo cargar el estado guardado:', e);
+          return null;
+        }
+      }
+
+      static saveToHistory(request) {
+        try {
+          const history = JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEYS.HISTORY) || '[]');
+          history.unshift({
+            ...request,
+            timestamp: new Date().toISOString(),
+            id: Date.now().toString()
+          });
           
-          try {
-            const history = JSON.parse(localStorage.getItem('sojoloCellHistory') || '[]');
-            history.unshift(requestHistory);
-            if (history.length > 10) history.pop();
-            localStorage.setItem('sojoloCellHistory', JSON.stringify(history));
-          } catch (e) {
-            console.warn('No se pudo guardar el historial:', e);
+          if (history.length > 10) {
+            history.splice(10);
           }
+          
+          localStorage.setItem(CONFIG.STORAGE_KEYS.HISTORY, JSON.stringify(history));
+          return true;
+        } catch (e) {
+          console.warn('No se pudo guardar en el historial:', e);
+          return false;
+        }
+      }
+    }
+
+    // Gestor de la aplicación
+    class AppManager {
+      constructor() {
+        this.verificationSystem = new VerificationSystem();
+        this.state = {
+          clientName: '',
+          clientPhone: '',
+          amount: null,
+          provider: null,
+          step: 1,
+          promotionShown: localStorage.getItem(CONFIG.STORAGE_KEYS.PROMOTION) !== 'true'
+        };
+        this.init();
+      }
+
+      init() {
+        this.setupEventListeners();
+        this.refreshCaptcha();
+        this.loadSavedState();
+        this.startAutoSave();
+      }
+
+      setupEventListeners() {
+        // Login form
+        document.getElementById('loginForm').addEventListener('submit', (e) => this.handleLogin(e));
+        
+        // Captcha
+        document.getElementById('refreshCaptcha').addEventListener('click', () => this.refreshCaptcha());
+        document.getElementById('newCaptcha').addEventListener('click', () => this.refreshCaptcha());
+        
+        // Amount selection
+        document.getElementById('amountOptions').addEventListener('click', (e) => {
+          const option = e.target.closest('.option[data-amount]');
+          if (option) this.handleAmountSelection(option);
         });
 
-        const openModal = (modal) => {
-          modal.classList.add('active');
-          document.body.style.overflow = 'hidden';
-        };
+        // Custom amount
+        document.getElementById('customOption').addEventListener('click', () => this.handleCustomAmount());
+        document.getElementById('customAmountInput').addEventListener('input', () => this.handleCustomAmountInput());
+        
+        // Provider selection
+        document.querySelectorAll('.provider-item').forEach(provider => {
+          provider.addEventListener('click', () => this.selectProvider(provider));
+          provider.addEventListener('keydown', (e) => {
+            if ((e.key === 'Enter' || e.key === ' ') && provider.dataset.available === 'true') {
+              e.preventDefault();
+              this.selectProvider(provider);
+            }
+          });
+        });
+        
+        // WhatsApp button
+        document.getElementById('whatsappBtn').addEventListener('click', () => this.handleWhatsAppRequest());
+        
+        // Modals
+        document.getElementById('openPricesBtn').addEventListener('click', () => this.openModal('pricesModal'));
+        document.getElementById('openPrivacyBtn').addEventListener('click', () => this.openModal('privacyModal'));
+        document.getElementById('closePricesModal').addEventListener('click', () => this.closeModal('pricesModal'));
+        document.getElementById('closePrivacyModal').addEventListener('click', () => this.closeModal('privacyModal'));
+        
+        // Promotion
+        document.getElementById('closePromotion').addEventListener('click', () => this.hidePromotion());
+        
+        // Download app
+        document.getElementById('downloadAppBtn').addEventListener('click', () => {
+          window.open('https://github.com/sojololite/cell/raw/refs/heads/main/Sojolo%20Cell.apk', '_blank');
+          Utils.showNotification('Descargando aplicación...', 'success', '📥');
+        });
 
-        const closeModal = (modal) => {
-          modal.classList.remove('active');
-          document.body.style.overflow = '';
-        };
-
-        el.openPrices.addEventListener('click', () => openModal(el.pricesModal));
-        el.openPrivacy.addEventListener('click', () => openModal(el.privacyModal));
-        el.closePrices.addEventListener('click', () => closeModal(el.pricesModal));
-        el.closePrivacy.addEventListener('click', () => closeModal(el.privacyModal));
-
-        [el.pricesModal, el.privacyModal].forEach((modal) => {
-          modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal(modal);
+        // Modal backdrop clicks
+        [document.getElementById('pricesModal'), document.getElementById('privacyModal')].forEach(modal => {
+          modal?.addEventListener('click', (e) => {
+            if (e.target === modal) this.closeModal(modal.id);
           });
         });
 
-        el.closePromotion.addEventListener('click', utils.hidePromotion);
-
+        // Escape key
         document.addEventListener('keydown', (e) => {
           if (e.key === 'Escape') {
-            [el.pricesModal, el.privacyModal].forEach(closeModal);
+            ['pricesModal', 'privacyModal'].forEach(modalId => {
+              if (document.getElementById(modalId)?.classList.contains('active')) {
+                this.closeModal(modalId);
+              }
+            });
           }
         });
 
+        // Auto-save on page unload
         window.addEventListener('beforeunload', () => {
-          utils.stopRecurrentNotifications();
-          utils.stopAutoSave();
-          utils.autoSaveState();
+          StateManager.saveState(this.state);
         });
 
+        // Auto-save on visibility change
         document.addEventListener('visibilitychange', () => {
           if (document.hidden) {
-            utils.autoSaveState();
+            StateManager.saveState(this.state);
+          }
+        });
+      }
+
+      refreshCaptcha() {
+        const captcha = this.verificationSystem.generate();
+        document.getElementById('captchaText').textContent = captcha;
+        document.getElementById('captchaInput').value = '';
+        document.getElementById('captchaInput').focus();
+      }
+
+      handleLogin(event) {
+        event.preventDefault();
+
+        const name = document.getElementById('clientName').value.trim();
+        const phone = Utils.sanitizePhone(document.getElementById('clientPhone').value);
+        const captchaInput = document.getElementById('captchaInput').value;
+
+        if (!Utils.validateName(name)) {
+          Utils.showNotification('Por favor, ingresa un nombre válido (mínimo 3 caracteres, solo letras)', 'error', '❌');
+          document.getElementById('clientName').focus();
+          return false;
+        }
+
+        if (!Utils.validateCubanPhone(phone)) {
+          Utils.showNotification('Formato de teléfono incorrecto. Ej: +53 51234567', 'error', '❌', 3000);
+          document.getElementById('clientPhone').focus();
+          return false;
+        }
+
+        try {
+          this.verificationSystem.validate(captchaInput);
+        } catch (error) {
+          Utils.showNotification(error.message, 'error', '❌');
+          this.refreshCaptcha();
+          return false;
+        }
+
+        this.state.clientName = name;
+        this.state.clientPhone = phone;
+
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('clientInfo').style.display = 'block';
+        document.getElementById('amountSection').style.display = 'block';
+        document.getElementById('whatsappBtn').style.display = 'block';
+        
+        document.getElementById('displayClientName').textContent = name;
+        document.getElementById('displayClientPhone').textContent = phone;
+        
+        this.updateStep(2);
+        Utils.showNotification('¡Login exitoso! Tus datos se guardarán automáticamente', 'success', '✅');
+        
+        StateManager.saveState(this.state);
+        return true;
+      }
+
+      handleAmountSelection(amountElement) {
+        document.querySelectorAll('.option[data-amount]').forEach(opt => {
+          opt.classList.remove('selected');
+        });
+
+        amountElement.classList.add('selected');
+        this.state.amount = `${amountElement.dataset.amount} CUP`;
+        
+        document.getElementById('providerSection').style.display = 'block';
+        this.updateStep(3);
+        
+        Utils.showNotification(`Cantidad seleccionada: ${this.state.amount}`, 'success', '✅');
+        StateManager.saveState(this.state);
+      }
+
+      handleCustomAmount() {
+        const customInputDiv = document.getElementById('customInputDiv');
+        const isActive = customInputDiv.style.display === 'block';
+        
+        document.querySelectorAll('.option[data-amount]').forEach(opt => {
+          opt.classList.remove('selected');
+        });
+
+        const customOption = document.getElementById('customOption');
+        customOption.classList.toggle('selected', !isActive);
+        
+        customInputDiv.style.display = isActive ? 'none' : 'block';
+        this.state.amount = isActive ? null : '';
+        
+        document.getElementById('providerSection').style.display = !isActive;
+        this.updateStep(isActive ? 2 : 3);
+        
+        if (!isActive) {
+          document.getElementById('customAmountInput').focus();
+          Utils.showNotification('Ingresa la cantidad deseada', 'info', '💡');
+        }
+        
+        StateManager.saveState(this.state);
+      }
+
+      handleCustomAmountInput() {
+        const value = document.getElementById('customAmountInput').value.trim();
+        const amount = parseInt(value);
+        const resultDiv = document.getElementById('customAmountResult');
+        
+        if (value && !isNaN(amount) && amount > 0) {
+          const price = Utils.calculateCustomPrice(amount);
+          this.state.amount = `${amount} CUP`;
+          document.getElementById('customAmountPrice').textContent = price;
+          resultDiv.style.display = 'block';
+          
+          if (amount > 1000) {
+            resultDiv.innerHTML = 
+              `Precio aproximado: <span id="customAmountPrice">${price}</span> CUP
+               <div class="price-warning">⚠️ Precio estimado - puede variar</div>`;
+          }
+        } else {
+          this.state.amount = null;
+          resultDiv.style.display = 'none';
+        }
+        
+        document.getElementById('providerSection').style.display = !!this.state.amount;
+        this.updateStep(this.state.amount ? 3 : 2);
+        StateManager.saveState(this.state);
+      }
+
+      selectProvider(providerElement) {
+        if (providerElement.dataset.available !== 'true') return;
+
+        document.querySelectorAll('.provider-item').forEach(item => {
+          item.classList.remove('selected');
+        });
+
+        providerElement.classList.add('selected');
+        this.state.provider = providerElement.dataset.provider;
+        
+        this.updateStep(4);
+        Utils.showNotification('Proveedor seleccionado', 'success', '✅');
+        StateManager.saveState(this.state);
+
+        // Mostrar promoción después de seleccionar proveedor
+        setTimeout(() => this.showPromotion(), 2000);
+      }
+
+      handleWhatsAppRequest() {
+        if (!this.state.amount || !this.state.provider) return;
+
+        const providerNumber = this.state.provider.replace(/\D/g, '');
+        const amountValue = this.state.amount.split(' ')[0];
+        const finalPrice = Utils.calculateCustomPrice(parseInt(amountValue));
+
+        const providerName = this.getProviderName(this.state.provider);
+        
+        const message = `¡Hola! Me comunico a través de la plataforma Sojolo Cell.
+
+INFORMACIÓN DEL CLIENTE:
+• Nombre: ${this.state.clientName}
+• Teléfono: ${this.state.clientPhone}
+
+SOLICITUD DE TRANSFERENCIA:
+• Monto solicitado: ${this.state.amount}
+• Precio aproximado: ${finalPrice} CUP
+• Proveedor seleccionado: ${providerName}
+
+Por favor, indíqueme:
+- Confirmación de disponibilidad
+- Tiempo estimado de entrega
+- Método de pago aceptado
+
+Quedo atento a su respuesta. ¡Gracias!`;
+
+        const url = `https://wa.me/${providerNumber}?text=${encodeURIComponent(message)}`;
+        
+        window.open(url, '_blank', 'noopener,noreferrer');
+        Utils.showNotification('Redirigiendo a WhatsApp...', 'success', '💬');
+
+        StateManager.saveToHistory({
+          clientName: this.state.clientName,
+          clientPhone: this.state.clientPhone,
+          amount: this.state.amount,
+          price: finalPrice,
+          provider: this.state.provider
+        });
+      }
+
+      getProviderName(providerPhone) {
+        const providerElement = document.querySelector(`.provider-item[data-provider="${providerPhone}"]`);
+        return providerElement ? providerElement.querySelector('.provider-name').textContent : 'Proveedor seleccionado';
+      }
+
+      updateStep(step) {
+        this.state.step = step;
+        document.querySelectorAll('.progress-step').forEach((stepEl, index) => {
+          const stepNumber = parseInt(stepEl.dataset.step);
+          if (stepNumber <= step) {
+            stepEl.classList.add('active');
+            stepEl.setAttribute('aria-current', stepNumber === step ? 'step' : 'false');
+          } else {
+            stepEl.classList.remove('active');
+            stepEl.removeAttribute('aria-current');
           }
         });
 
-        updateUI();
-        
-        if (state.clientName && state.clientPhone) {
-          if (state.amount && state.provider) {
-            utils.updateStep(4);
-          } else if (state.amount) {
-            utils.updateStep(3);
-          } else {
-            utils.updateStep(2);
-          }
-        } else {
-          utils.updateStep(1);
-        }
-      };
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-      } else {
-        init();
+        // Actualizar estado del botón de WhatsApp
+        document.getElementById('whatsappBtn').disabled = !(this.state.amount && this.state.provider);
       }
-    })();
+
+      openModal(modalId) {
+        document.getElementById(modalId).classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      closeModal(modalId) {
+        document.getElementById(modalId).classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      showPromotion() {
+        if (this.state.promotionShown && document.getElementById('promotionBanner')) {
+          document.getElementById('promotionBanner').classList.add('show');
+        }
+      }
+
+      hidePromotion() {
+        document.getElementById('promotionBanner').classList.remove('show');
+        localStorage.setItem(CONFIG.STORAGE_KEYS.PROMOTION, 'true');
+        this.state.promotionShown = false;
+      }
+
+      startAutoSave() {
+        setInterval(() => {
+          StateManager.saveState(this.state);
+        }, 10000);
+      }
+
+      loadSavedState() {
+        const savedState = StateManager.loadState();
+        if (savedState && savedState.clientName && savedState.clientPhone) {
+          this.state.clientName = savedState.clientName;
+          this.state.clientPhone = savedState.clientPhone;
+          this.state.amount = savedState.amount;
+          this.state.provider = savedState.provider;
+          this.state.step = savedState.step || 1;
+          
+          document.getElementById('clientName').value = savedState.clientName;
+          document.getElementById('clientPhone').value = savedState.clientPhone;
+          
+          document.getElementById('loginSection').style.display = 'none';
+          document.getElementById('clientInfo').style.display = 'block';
+          document.getElementById('amountSection').style.display = 'block';
+          document.getElementById('whatsappBtn').style.display = 'block';
+          
+          document.getElementById('displayClientName').textContent = savedState.clientName;
+          document.getElementById('displayClientPhone').textContent = savedState.clientPhone;
+          
+          this.updateStep(this.state.step);
+          
+          if (savedState.amount) {
+            document.querySelectorAll('.option[data-amount]').forEach(opt => {
+              if (opt.dataset.amount === savedState.amount.split(' ')[0]) {
+                opt.classList.add('selected');
+              }
+            });
+            document.getElementById('providerSection').style.display = 'block';
+          }
+          
+          if (savedState.provider) {
+            document.querySelectorAll('.provider-item').forEach(provider => {
+              if (provider.dataset.provider === savedState.provider) {
+                provider.classList.add('selected');
+              }
+            });
+          }
+          
+          Utils.showNotification('Datos cargados automáticamente', 'info', '🔄', 3000);
+        }
+      }
+    }
+
+    // Inicializar la aplicación cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', () => {
+      new AppManager();
+    });
   </script>
 </body>
 </html>

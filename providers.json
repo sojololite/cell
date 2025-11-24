@@ -1,0 +1,52 @@
+{
+  "app": {
+    "name": "Sojolo Cell",
+    "version": "2.0.0",
+    "description": "Plataforma de transferencia de saldo móvil en Cuba",
+    "lastUpdated": "2024-01-15T00:00:00Z"
+  },
+  "providers": [
+    {
+      "id": 1,
+      "name": "Proveedor 1",
+      "phone": "+53 5 6584673",
+      "available": true,
+      "rating": 4.8,
+      "responseTime": "5-15 min",
+      "lastActive": "2024-01-15T10:30:00Z"
+    },
+    {
+      "id": 2,
+      "name": "Proveedor 2", 
+      "phone": "+53 5 0728907",
+      "available": true,
+      "rating": 4.9,
+      "responseTime": "2-10 min",
+      "lastActive": "2024-01-15T11:45:00Z"
+    },
+    {
+      "id": 3,
+      "name": "Proveedor 3",
+      "phone": "+53 5 5384257",
+      "available": true,
+      "rating": 4.7,
+      "responseTime": "10-25 min",
+      "lastActive": "2024-01-15T09:15:00Z"
+    },
+    {
+      "id": 4,
+      "name": "Proveedor 4",
+      "phone": "+53 63175552",
+      "available": true,
+      "rating": 4.6,
+      "responseTime": "15-30 min",
+      "lastActive": "2024-01-15T08:20:00Z"
+    }
+  ],
+  "metadata": {
+    "totalProviders": 4,
+    "availableProviders": 4,
+    "averageRating": 4.75,
+    "updateFrequency": "realtime"
+  }
+}
